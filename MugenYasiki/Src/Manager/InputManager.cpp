@@ -1,5 +1,8 @@
 #include"InputManager.h"
 
+char KeyStatus[256];
+char PreviousKeyStatus[256];
+
 void InputManager::UpdateKeyStatus()
 {
 	for (int i = 0; i < 256; i++)

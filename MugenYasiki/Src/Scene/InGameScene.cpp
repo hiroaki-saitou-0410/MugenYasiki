@@ -36,7 +36,7 @@ void InGameScene::Draw()
 	//Player
 	DrawGraph(player.SetPosX(), WindowWidth - 700, textureManager->GetTextureDate(m_WaitIndex), TRUE);
 	
-	if (--m_ActStop <= 0)
+	if (--m_ActStop <= 0 && player.IsStop()== false)
 	{
 		m_WaitIndex++;
 		m_ActStop = m_ActSpeed;

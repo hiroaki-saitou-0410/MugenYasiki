@@ -19,8 +19,6 @@ public:
 	//ó£ÇµÇΩèuä‘
 	bool IsKeyRelesed(int key);
 private:
-	char KeyStatus[256];
-	char PreviousKeyStatus[256];
 
 };
 

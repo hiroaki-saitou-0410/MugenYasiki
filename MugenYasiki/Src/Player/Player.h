@@ -15,6 +15,7 @@ public:
 	void Draw();
 
 	int SetPosX() {return m_Posx; }
+	bool IsStop() { return m_IsStop; }
 private:
 	InputManager* inputManager = nullptr;
 
@@ -22,6 +23,7 @@ private:
 	const int m_Speed = 2;
 
 	bool m_IsRight;
+	bool m_IsStop;
 };
 
 #endif // !PLAYER_H
