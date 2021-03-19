@@ -48,7 +48,7 @@ SceneBase* SceneManager::create_NextScene()
 	//	break;
 
 	case InGame:
-		//next = new GameScene();
+		next = new InGameScene();
 		break;
 
 	//case Result:

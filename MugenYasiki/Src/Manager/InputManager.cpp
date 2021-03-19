@@ -2,9 +2,9 @@
 
 void InputManager::UpdateKeyStatus()
 {
-	for (char i = 0; i < 256; i++)
+	for (int i = 0; i < 256; i++)
 	{
-		PreviousKeyState[i] = KeyStatus[i];
+		PreviousKeyStatus[i] = KeyStatus[i];
 	}
 
 	GetHitKeyStateAll(KeyStatus);
@@ -12,7 +12,7 @@ void InputManager::UpdateKeyStatus()
 
 bool InputManager::IsKeyPushed(int key)
 {
-	if(PreviousKeyState[key] == 0 && KeyStatus[key]==1)
+	if(PreviousKeyStatus[key] == 0 && KeyStatus[key]==1)
 	{
 		return true;
 	}
@@ -24,7 +24,7 @@ bool InputManager::IsKeyPushed(int key)
 
 bool InputManager::IsKeyHeld(int key)
 {
-	if (PreviousKeyState[key] == 1 && KeyStatus[key] == 1)
+	if (PreviousKeyStatus[key] == 1 && KeyStatus[key] == 1)
 	{
 		return true;
 	}
@@ -37,7 +37,7 @@ bool InputManager::IsKeyHeld(int key)
 
 bool InputManager::IsKeyRelesed(int key)
 {
-	if (PreviousKeyState[key] == 1 && KeyStatus[key] == 0)
+	if (PreviousKeyStatus[key] == 1 && KeyStatus[key] == 0)
 	{
 		return true;
 	}

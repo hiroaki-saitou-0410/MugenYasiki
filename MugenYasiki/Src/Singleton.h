@@ -9,28 +9,28 @@ protected:
 	virtual ~Singleton() {};
 
 private:
-	static T* instanse;
+	static T* instance;
 
 public:
-	static void CreateInstanse()
+	static void CreateInstance()
 	{
-		if (instanse == nullptr)
+		if (instance == nullptr)
 		{
-			instanse = new T();
+			instance = new T();
 		}
 	}
 
-	static void DeleteInstanse()
+	static void DeleteInstance()
 	{
-		delete instanse;
-		instanse = nullptr;
+		delete instance;
+		instance = nullptr;
 	}
 
-	static T* GetInstanse() { return instanse; };
+	static T* GetInstance() { return instance; };
 };
 
 template <class T>
-T* Singleton<T>::instanse = nullptr;
+T* Singleton<T>::instance = nullptr;
 
 #endif // !SINGLETON_H
 

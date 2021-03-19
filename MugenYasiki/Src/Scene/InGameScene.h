@@ -7,6 +7,7 @@
 #include"../Manager/InputManager.h"
 #include"../Manager/SceneManager.h"
 #include"../Manager/TextureManager.h"
+#include"../Player/Player.h"
 
 class InGameScene :public SceneBase
 {
@@ -22,10 +23,15 @@ public:
 private:
 	GameManager* gamenManager = nullptr;
 	InputManager* inputManager = nullptr;
-	TextureManager* textureMnager = nullptr;
+	TextureManager* textureManager = nullptr;
+	//Player* player = new Player;
 
-	bool FinishedScene = false;
+	bool FinishedScene =false;
 
+	int m_ActStop;
+	int m_WaitIndex;
+	int m_ActSpeed;
+	int m_RightMotionMax;
 };
 
 #endif // !INGAMESCENE_H

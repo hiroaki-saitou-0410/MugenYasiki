@@ -20,7 +20,7 @@ public:
 	bool IsKeyRelesed(int key);
 private:
 	char KeyStatus[256];
-	char PreviousKeyState[256];
+	char PreviousKeyStatus[256];
 
 };
 
