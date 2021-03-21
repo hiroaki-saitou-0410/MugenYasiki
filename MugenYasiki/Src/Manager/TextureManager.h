@@ -30,6 +30,7 @@ enum
 	right_Animation5,
 	right_Animation6,
 	right_Animation7,
+	trap_Katana,
 
 	textureMax,
 };

@@ -34,6 +34,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		TextureDate[right_Animation5] = LoadGraph("Res/Player/character_right_6.png");
 		TextureDate[right_Animation6] = LoadGraph("Res/Player/character_right_7.png");
 		TextureDate[right_Animation7] = LoadGraph("Res/Player/character_right_8.png");//------
+		TextureDate[trap_Katana] = LoadGraph("Res/Trap/katana2.png");
 		break;
 
 	//case Result:

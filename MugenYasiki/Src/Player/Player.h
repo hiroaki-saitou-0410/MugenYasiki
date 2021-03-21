@@ -15,6 +15,7 @@ public:
 	void Draw();
 
 	int SetPosX() {return m_Posx; }
+	void GetPosX(int x) { m_Posx = x; }
 	bool IsStop() { return m_IsStop; }
 private:
 	InputManager* inputManager = nullptr;

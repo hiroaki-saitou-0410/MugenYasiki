@@ -32,6 +32,7 @@ private:
 	int m_WaitIndex;
 	int m_ActSpeed;
 	int m_RightMotionMax;
+	int PlayerPosx;
 };
 
 #endif // !INGAMESCENE_H
