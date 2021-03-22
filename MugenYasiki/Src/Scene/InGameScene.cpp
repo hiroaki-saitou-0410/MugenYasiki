@@ -1,18 +1,20 @@
-#include "InGameScene.h"
+ï»¿#include "InGameScene.h"
 
 #define PI    3.1415926535897932384626433832795f
 
 float rad90 = (PI / 2);
 
-//‚±‚Ì•Ï”‚ÍˆÚ“®‚Ì‰Â”\«‚ ‚è
+//ã“ã®å¤‰æ•°ã¯ç§»å‹•ã®å¯èƒ½æ€§ã‚ã‚Š
 bool after_acti = false, deficit = false, fall = false, dead = false, isfade_in = false, trap_katana = true, have_katana = false;
 int katana_x = 800, katana_y = 0, fall_speed = 10, death_count = 0, alpha = 0, fade_speed = 2;;
 
+bool orc_dead = false;
+int orc_x = 1400, orc_y = WindowWidth - 750;
 Player player;
 
 InGameScene::InGameScene()
 {
-	//ŠeƒCƒ“ƒXƒ^ƒ“ƒX
+	//å„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	gamenManager = GameManager::GetInstance();
 	inputManager = InputManager::GetInstance();
 	textureManager = TextureManager::GetInstance();
@@ -35,7 +37,7 @@ void InGameScene::Exec()
 {
 	player.Exec();
 
-	//“‚Ì—‰º
+	//åˆ€ã®è½ä¸‹
 	if ((katana_x - 40) <= player.SetPosX() + 112)
 	{
 		fall = true;
@@ -52,7 +54,7 @@ void InGameScene::Exec()
 		}
 	}
 
-	//“‚Ì“–‚½‚è”»’è
+	//åˆ€ã®å½“ãŸã‚Šåˆ¤å®š
 	if (katana_x + 11 > player.SetPosX() + 56 && katana_x + 11 < player.SetPosX() + 168 && !after_acti && !dead)
 	{
 		if (katana_y + 225 > WindowWidth - 700)
@@ -66,8 +68,20 @@ void InGameScene::Exec()
 		have_katana = true;
 		trap_katana = false;
 	}
+	
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨é¬¼ã®å½“ãŸã‚Šåˆ¤å®š
+	if ((player.SetPosX() + 112) > orc_x &&
+		player.SetPosX() < orc_x + 300)
+	{
+		switch (have_katana)
+		{
+		case true:	orc_dead = true;	break;
 
-	//ƒtƒF[ƒhƒAƒEƒg
+		case false:	dead = true;		break;
+		}
+	}
+
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
 	if (dead)
 	{
 		alpha += fade_speed;
@@ -118,20 +132,23 @@ void InGameScene::Draw()
 		}
 		else
 		{
-			//“‚ª°‚Éh‚³‚é‚æ‚¤‚É‚·‚é
+			//åˆ€ãŒåºŠã«åˆºã•ã‚‹ã‚ˆã†ã«ã™ã‚‹
 			DrawRectGraph(katana_x, katana_y, 0, 0, 22, int(845 - katana_y - 58), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
 		}
 		if (after_acti)
 		{
-			//h‚³‚Á‚½‚Ü‚ÜŒÅ’è‚³‚¹‚éˆ—
+			//åˆºã•ã£ãŸã¾ã¾å›ºå®šã•ã›ã‚‹å‡¦ç†
 			DrawRectGraph(katana_x, katana_y, 0, 0, 22, int(845 - 620 - 58), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
 		}
 	}
 
 
 	//Orc
-	DrawGraph(1400, WindowWidth-750, textureManager->GetTextureDate(texture0), TRUE);
-
+	if (orc_dead == true){}
+	else
+	{
+		DrawGraph(orc_x, orc_y, textureManager->GetTextureDate(texture0), TRUE);
+	}
 	//Text_Bar
 	DrawGraph(0, WindowWidth - 283, textureManager->GetTextureDate(texture2), TRUE);
 	//Bar_
