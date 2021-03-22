@@ -8,6 +8,15 @@ float rad90 = (PI / 2);
 bool after_acti = false, deficit = false, fall = false, dead = false, isfade_in = false, trap_katana = true, have_katana = false;
 int katana_x = 800, katana_y = 0, fall_speed = 10, death_count = 0, alpha = 0, fade_speed = 2;;
 
+enum MoveType
+{
+	stop_R,
+	stop_L,
+	move_R,
+	move_L,
+	jamp,
+}; MoveType moveType = stop_R;
+
 bool orc_dead = false;
 int orc_x = 1400, orc_y = WindowWidth - 750;
 Player player;
@@ -71,8 +80,8 @@ void InGameScene::Exec()
 	}
 	
 	// プレイヤーと鬼の当たり判定
-	if ((player.SetPosX() + 112) > orc_x &&
-		player.SetPosX() < orc_x + 300)
+	if ((player.GetPosX() + 112) > orc_x &&
+		player.GetPosX() < orc_x + 300)
 	{
 		switch (have_katana)
 		{

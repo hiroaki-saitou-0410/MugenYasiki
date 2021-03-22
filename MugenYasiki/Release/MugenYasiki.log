@@ -6,9 +6,9 @@ C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Src
   TextureManager.cpp
   Player.cpp
   InGameScene.cpp
-  SceneBase.cpp
   コード生成しています。
-  Previous IPDB not found, fall back to full compilation.
-  All 71 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 71 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   MugenYasiki.vcxproj -> C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Release\MugenYasiki.exe
