@@ -38,3 +38,15 @@ void Player::Draw()
 	
 }
 
+bool Player::Collision(int x_, int y_)
+{
+	if ((x_ < m_Posx + PlayerTexture_X || y_ < Player_Y) &&
+		(x_ < m_Posx + PlayerTexture_X || y_ + 479 < Player_Y + PlayerTexture_Y) &&
+		(x_ + 350 > m_Posx || y_ + 479 < Player_Y + PlayerTexture_Y) &&
+		(x_ + 350 > m_Posx || y_ < Player_Y))
+	{
+
+		return true;
+	}
+	return false;
+}

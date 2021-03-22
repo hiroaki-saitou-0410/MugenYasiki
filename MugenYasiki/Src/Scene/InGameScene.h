@@ -20,6 +20,7 @@ public:
 	void Draw();
 	virtual bool IsEnd()const;
 
+	void Animation();
 private:
 	GameManager* gamenManager = nullptr;
 	InputManager* inputManager = nullptr;
@@ -29,10 +30,11 @@ private:
 	bool FinishedScene =false;
 
 	int m_ActStop;
-	int m_WaitIndex;
+	int m_MoveIndex;
 	int m_ActSpeed;
 	int m_RightMotionMax;
 	int PlayerPosx;
+	int m_LeftMotionMax;
 };
 
 #endif // !INGAMESCENE_H

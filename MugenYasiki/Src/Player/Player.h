@@ -14,17 +14,20 @@ public:
 	void Exec();
 	void Draw();
 
-	int SetPosX() {return m_Posx; }
-	void GetPosX(int x) { m_Posx = x; }
+	int GetPosX() {return m_Posx; }
+	void SetPosX(int x) { m_Posx = x; }
 	bool IsStop() { return m_IsStop; }
+	bool IsRight() { return m_IsRight; }
+	bool Collision(int x_, int y_);
+
 private:
 	InputManager* inputManager = nullptr;
 
 	int m_Posx;
 	const int m_Speed = 2;
 
-	bool m_IsRight;
-	bool m_IsStop;
+	bool m_IsRight = true;
+	bool m_IsStop = true;
 };
 
 #endif // !PLAYER_H

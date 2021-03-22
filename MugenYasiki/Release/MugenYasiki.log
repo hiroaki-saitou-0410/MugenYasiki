@@ -1,0 +1,14 @@
+﻿  Main.cpp
+C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Src\Main.cpp(10,1): warning C4007: 'WinMain': '__stdcall' でなければなりません。
+  GameManager.cpp
+  InputManager.cpp
+  SceneManager.cpp
+  TextureManager.cpp
+  Player.cpp
+  InGameScene.cpp
+  SceneBase.cpp
+  コード生成しています。
+  Previous IPDB not found, fall back to full compilation.
+  All 71 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  MugenYasiki.vcxproj -> C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Release\MugenYasiki.exe
