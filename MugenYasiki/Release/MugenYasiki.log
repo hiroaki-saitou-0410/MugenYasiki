@@ -1,14 +1,27 @@
-﻿  Main.cpp
-C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Src\Main.cpp(10,1): warning C4007: 'WinMain': '__stdcall' でなければなりません。
+﻿  BagOger.cpp
+  EnemyBase.cpp
+  GazeOger.cpp
+  OiranOger.cpp
+  PeepOger.cpp
+  SmallOger.cpp
+  TunagiOger.cpp
+  ActionMark.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\ActionMark.cpp(17,88): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
+  GimmickBase.cpp
+  Item.cpp
+  Main.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Main.cpp(10,1): warning C4007: 'WinMain': '__stdcall' でなければなりません。
   GameManager.cpp
   InputManager.cpp
   SceneManager.cpp
   TextureManager.cpp
   Player.cpp
   InGameScene.cpp
+  ResultScene.cpp
+  SceneBase.cpp
+  TitleScene.cpp
   コード生成しています。
-  2 of 71 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 146 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   コード生成が終了しました。
-  MugenYasiki.vcxproj -> C:\コンテンツ制作\二年前期チーム制作無限屋敷\MugenYasiki\Release\MugenYasiki.exe
+  MugenYasiki.vcxproj -> C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Release\MugenYasiki.exe

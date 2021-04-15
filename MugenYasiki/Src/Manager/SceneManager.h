@@ -4,6 +4,8 @@
 #include"../Definition.h"
 #include"../Singleton.h"
 #include"../Scene/InGameScene.h"
+#include"../Scene/TitleScene.h"
+//#include"../Scene/ResultScene.h"
 #include"../Scene/SceneBase.h"
 
 class SceneManager:public Singleton<SceneManager>

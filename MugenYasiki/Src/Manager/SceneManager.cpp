@@ -5,7 +5,7 @@ SceneID SceneManager::m_NextSceneID = Scene_Invalid;
 SceneManager::SceneManager()
 	:m_pScene(nullptr)
 {
-	SetNextScene(InGame);//ƒ¿”ÅˆÈ~title‚É–ß‚·
+	SetNextScene(Title);//ƒ¿”ÅˆÈ~title‚É–ß‚·
 	m_pScene = create_NextScene();
 }
 
@@ -44,8 +44,9 @@ SceneBase* SceneManager::create_NextScene()
 	SceneBase* next = nullptr;
 	switch (m_NextSceneID)		//ƒ¿”ÅˆÈ~title‚É–ß‚·
 	{
-	//case Title:
-	//	break;
+	case Title:
+		next = new TitleScene();
+		break;
 
 	case InGame:
 		next = new InGameScene();

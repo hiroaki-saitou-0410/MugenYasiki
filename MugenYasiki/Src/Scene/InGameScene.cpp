@@ -5,8 +5,9 @@
 float rad90 = (PI / 2);
 
 //この変数は移動の可能性あり
-bool after_acti = false, deficit = false, fall = false, dead = false, isfade_in = false, trap_katana = true, have_katana = false;
-int katana_x = 800, katana_y = 0, fall_speed = 10, death_count = 0, alpha = 0, fade_speed = 2;;
+//, deficit = false, fall = false, , trap_katana = true, have_katana = false;
+//int katana.GetPosX() = 800, katana.GetPosY() = 0, fall_speed = 5, death_count = 0,
+bool push = false;
 
 enum MoveType
 {
@@ -17,9 +18,26 @@ enum MoveType
 	jamp,
 }; MoveType moveType = stop_R;
 
+enum
+{
+	STEP_EXEC,
+	STEP_PAUSE,
+	STEP_END
+};
+
 bool orc_dead = false;
-int orc_x = 1400, orc_y = WindowWidth - 750;
+int orc_x = 1400;
 Player player;
+TunagiOger tunagi;
+BagOger bag;
+GazeOger gaze;
+OiranOger oiran;
+PeepOger peep;
+SmallOger small_;
+Item item;
+ActionMark actionMark;
+Katana katana;
+EnemyBase Ebase;
 
 InGameScene::InGameScene()
 {
@@ -36,7 +54,13 @@ InGameScene::InGameScene()
 	m_ActSpeed=9;
 	m_ActStop= m_ActSpeed;
 	m_MoveIndex = right_Animation0;
+	m_hp = player.GetHP();
+	m_OgreNumber = GetRand(8);
+	m_ItemNumber = item_candle;
+	m_Step = STEP_EXEC;
+	m_RoomNumber = BackGround0;
 }
+
 
 InGameScene::~InGameScene()
 {
@@ -45,144 +69,255 @@ InGameScene::~InGameScene()
 
 void InGameScene::Exec()
 {
-	player.Exec();
-
-	//刀の落下
-	if ((katana_x - 40) <= player.GetPosX() + 112)
+	switch (m_Step)
 	{
-		fall = true;
-	}
-	if (fall)
-	{
-		if (katana_y <= 620)	//845-225	225-(58(283-225))=167
+	case STEP_EXEC:
+		if (inputManager->IsKeyPushed(KEY_INPUT_P))//一時停止
 		{
-			katana_y += fall_speed;
-			if (katana_y >= 620 - 58)
+			m_Step = STEP_PAUSE;
+		}
+
+		if (dead == false)
+		{
+			player.Exec();
+			Animation();
+		}
+
+		if (inputManager->IsKeyPushed(KEY_INPUT_Q))//アイテムランダム生成
+		{
+			m_ItemNumber = item.RandItem() + item_candle;
+		}
+
+		if (inputManager->IsKeyPushed(KEY_INPUT_E))//鬼ランダム生成
+		{
+			m_OgreNumber = GetRand(8);
+		}
+
+		katana.Exec(player.GetPosX(), Player_Y);
+
+		if (katana.Collision(player.GetPosX(), Player_Y))
+		{
+			switch (katana.IsFall())
 			{
-				after_acti = true;
+			case true:dead = true;	break;
+			case false:
+				if (player.ItemGet())
+				{
+					items.have_katana = true;
+				}
+				break;
 			}
 		}
-	}
+	
+		//刀の落下ーーーーーーーーーーーーーーーーーギミック
+		//if ((katana.GetPosX() - 40) <= player.GetPosX() + 112)
+		//{
+		//	fall = true;
+		//}
+		//if (fall)
+		//{
+		//	if (katana.GetPosY() <= 620)	//845-225	225-(58(283-225))=167
+		//	{
+		//		katana.GetPosY() += fall_speed;
+		//		if (katana.GetPosY() >= 620 - 58)
+		//		{
+		//			after_acti = true;
+		//		}
+		//	}
+		//}
+		////刀の当たり判定
+		//if (katana.GetPosX() + 11 > player.GetPosX() + 56 &&
+		//	katana.GetPosX() + 11 < player.GetPosX() + 168 &&
+		//	!after_acti && !dead)
+		//{
+		//	if (katana.GetPosY() + 225 > WindowWidth - 700)
+		//	{
+		//		death_count++;
+		//		dead = true;
+		//	}
+		//}
+		//if (katana.GetPosX() + 11 > player.GetPosX() + 56 && katana.GetPosX() + 11 < player.GetPosX() + 168 && after_acti && !dead)
+		//{
+		//	have_katana = true;
+		//	trap_katana = false;
+		//}
+		//ーーーーーーーーーーーーーーーーーーーーーーーーーーギミック
 
-	//刀の当たり判定
-	if (katana_x + 11 > player.GetPosX() + 56 && katana_x + 11 < player.GetPosX() + 168 && !after_acti && !dead)
-	{
-		if (katana_y + 225 > WindowWidth - 700)
+		// プレイヤーと鬼の当たり判定
+		if (Ebase.Collision(player.GetPosX(), Player_Y, EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]))
 		{
-			death_count++;
-			dead = true;
+			switch (items.have_katana)
+			{
+			case true:	orc_dead = true;	break;
+
+			case false:	dead = true;		break;
+			}
 		}
-	}
-	if (katana_x + 11 > player.GetPosX() + 56 && katana_x + 11 < player.GetPosX() + 168 && after_acti && !dead)
-	{
-		have_katana = true;
-		trap_katana = false;
+
+		Fade(katana);
+		
+		break;
+	case STEP_PAUSE:Step_Pause(); break;
+	case STEP_END: Step_Input();
+					IsEnd(); break;
+	default: break;
 	}
 	
-	// プレイヤーと鬼の当たり判定
-	if ((player.GetPosX() + 112) > orc_x &&
-		player.GetPosX() < orc_x + 300)
-	{
-		switch (have_katana)
-		{
-		case true:	orc_dead = true;	break;
-
-		case false:	dead = true;		break;
-		}
-	}
-
-	//フェードアウト
-	if (dead)
-	{
-		alpha += fade_speed;
-		if (alpha >= 255)
-		{
-			isfade_in = true;
-			player.SetPosX(100);
-			dead = false;
-			after_acti = true;
-			katana_y = 620 - 58;
-		}
-	}
-	if (isfade_in)
-	{
-		alpha -= fade_speed;
-		if (alpha <= 0)
-		{
-			isfade_in = false;
-		}
-	}
 }
 
 void InGameScene::Draw()
 {
 	//BackGround
-	DrawGraph(0, 0, textureManager->GetTextureDate(texture1), TRUE);
+	DrawGraph(0, 0, textureManager->GetTextureDate(m_RoomNumber), TRUE);
+
+	//Item
+	DrawGraph(400, TextBar_Y-309, textureManager->GetTextureDate(m_ItemNumber), TRUE);
 
 	//Player
-	DrawGraph(player.GetPosX(), WindowWidth - 700, textureManager->GetTextureDate(m_MoveIndex), TRUE);
-	//Player�A�j���[�V�����֐�
-	Animation();
+	DrawGraph(player.GetPosX(), Player_Y, textureManager->GetTextureDate(m_MoveIndex), TRUE);
 
-	//Trap_Katana
-	if (trap_katana)
+	if (actionMark.Collition(player.GetPosX(),player.IsRight()))
 	{
-		if (katana_y <= 620 - 58)
+		DrawGraph(player.GetPosX()+82, Player_Y - 50, textureManager->GetTextureDate(Mark), TRUE);
+	}
+	//Trap_Katana
+	if (katana.IsDraw()==true &&items.have_katana==false)
+	{
+		if (katana.GetPosX() <= 620 - 58)
 		{
-			DrawGraph(katana_x, katana_y, textureManager->GetTextureDate(trap_Katana), TRUE);
+			DrawGraph(katana.GetPosX(), katana.GetPosY(), textureManager->GetTextureDate(trap_Katana), TRUE);
 		}
-		else
+		else 
 		{
 			//刀が床に刺さるようにする
-			DrawRectGraph(katana_x, katana_y, 0, 0, 22, int(845 - katana_y - 58), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
+			DrawRectGraph(katana.GetPosX(), katana.GetPosY(), 0, 0, 22, int(787 - katana.GetPosY()), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
 		}
-		if (after_acti)
-		{
-			//刺さったまま固定させる処理
-			DrawRectGraph(katana_x, katana_y, 0, 0, 22, int(845 - 620 - 58), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
-		}
+		//if (katana.AfterAction()==true )
+		//{
+		//	//刺さったまま固定させる処理
+		//	//DrawRectGraph(katana.GetPosX(), katana.GetPosY(), 0, 0, 22, int(787 - katana.GetPosY()), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
+		//}
 	}
-
-
-	//Orc
-	if (orc_dead == true){}
-	else
-	{
-		DrawGraph(orc_x, orc_y, textureManager->GetTextureDate(texture0), TRUE);
-	}
-	//Text_Bar
-	DrawGraph(0, WindowWidth - 283, textureManager->GetTextureDate(texture2), TRUE);
-	//Bar_
-	DrawGraph(0, WindowWidth-283, textureManager->GetTextureDate(texture3), TRUE);
 
 	
-
-	if (dead || isfade_in)
+	//Orc
+	if (orc_dead == true)
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		
+	}
+	else
+	{//
+		DrawExtendGraph(orc_x, EnemyPosY[m_OgreNumber], orc_x+ EnemyTexture_X[m_OgreNumber], EnemyPosY[m_OgreNumber]+ EnemyTexture_Y[m_OgreNumber], textureManager->GetTextureDate(m_OgreNumber), TRUE);
+	}
+	//Text_Bar
+	DrawGraph(8, TextBar_Y, textureManager->GetTextureDate(TextBar), TRUE);
+	//Bar_
+	DrawGraph(8, TextBar_Y, textureManager->GetTextureDate(CharacterTextBar0), TRUE);
+
+	if (dead || isfade_in || push)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
 		DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+
+	if (m_Step == STEP_PAUSE)
+	{
+		DrawString(960, 100, "Pause", GetColor(255, 255, 255));
 	}
 	//���񂾉񐔁@Debug�p
 	//DrawFormatString(100, 100, GetColor(255, 0, 0), "%d", death_count);
 
 	//Debug�p
-	/*if (player.Collision(1400, TUNAGI_Oger_Y) == true)
-	//{
-	//	DrawString(100, 100, "HIT", GetColor(255, 255, 255));
-	//}
-	//
-	//DrawFormatString(100, 120, GetColor(255, 255, 255), "���F%d < %d", 1400, player.GetPosX() + PlayerTexture_X);
-	//DrawFormatString(100, 140, GetColor(255, 255, 255), "�E�F%d > %d", 1400 + 350, player.GetPosX());
-	//
-	//DrawBox(1400, TUNAGI_Oger_Y, 1400 + 350, TUNAGI_Oger_Y + 479, GetColor(255, 255, 255), FALSE);
-	//
-	//DrawBox(player.GetPosX(), Player_Y, player.GetPosX() + PlayerTexture_X, Player_Y + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);*/
+	if (Ebase.Collision(player.GetPosX() + 70, Player_Y, EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]) == true)
+	{
+		DrawString(100, 100, "HIT", GetColor(255, 255, 255));
+	}
+	
+	if (katana.Collision(player.GetPosX(), Player_Y))
+	{
+		DrawString(100, 20, "刀:HIT", GetColor(255, 255, 255));
+	}
+	if (katana.IsFall()==true)
+	{
+		DrawString(100, 140, "落ちてる", GetColor(255, 255, 255));
+	}
+	if (items.have_katana == true)
+	{
+		DrawString(100, 160, "刀：持ってる", GetColor(255, 255, 255));
+	}
+	DrawFormatString(100,120, GetColor(255, 255, 255), "%d", m_RoomNumber);
+	DrawFormatString(100,60, GetColor(255, 255, 255), "%d", katana.GetPosY());
+	DrawFormatString(100,80, GetColor(255, 255, 255), "P_PosX：%d",player.GetPosX());
+	DrawFormatString(100, 40, GetColor(255, 255, 255),"真っ黒まで%d", m_hp);
+	//DrawFormatString(100, 120, GetColor(255, 255, 255), "%d < %d", 1400, player.GetPosX() + PlayerTexture_X);
+	//DrawFormatString(100, 140, GetColor(255, 255, 255), "%d > %d", 1400 + 350, player.GetPosX());
+	
+	DrawBox(orc_x, EnemyPosY[m_OgreNumber], orc_x + EnemyTexture_X[m_OgreNumber], EnemyPosY[m_OgreNumber] + EnemyTexture_Y[m_OgreNumber], GetColor(255, 255, 255), FALSE);
+	
+	DrawBox(player.GetPosX() + 70, Player_Y, player.GetPosX() + PlayerTexture_X, Player_Y + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);
+	//*/
 }
 
 bool InGameScene::IsEnd() const
 {
 	return (FinishedScene);
+}
+
+void InGameScene::Step_Pause()
+{
+	if (inputManager->IsKeyPushed(KEY_INPUT_P))
+	{
+		m_Step = STEP_EXEC;
+	}
+}
+
+void InGameScene::Step_Input()
+{
+	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
+	{
+		m_Step = STEP_END;
+		SceneManager::GetInstance()->SetNextScene(Title);
+	}
+}
+
+void InGameScene::Fade(Katana katana)
+{
+	if (inputManager->IsKeyPushed(KEY_INPUT_B))//強制フェードアウト
+	{
+		push = true;
+	}
+	//フェードアウト
+	if (dead || push )
+	{
+		m_alpha += m_fade_speed;
+		if (m_alpha >= 255)
+		{
+			isfade_in = true;
+			player.SetPosX(100);
+			dead = false;
+			after_acti = true;
+			//katana.SetPosY(FallStopLimit);
+			m_OgreNumber = GetRand(8);
+			//m_hp--;
+			push = false;
+			orc_dead = false;
+			RoomChange();
+		}
+		if (m_hp == 0)
+		{
+			m_Step = STEP_END;
+		}
+
+	}
+	if (isfade_in && m_hp > 0)
+	{
+		m_alpha -= m_fade_speed;
+		if (m_alpha <= 0)
+		{
+			isfade_in = false;
+		}
+	}
 }
 
 void InGameScene::Animation()
@@ -274,3 +409,14 @@ void InGameScene::Animation()
 		break;
 	}
 }
+
+void InGameScene::RoomChange()
+{
+	m_RoomNumber++;
+	if (m_RoomNumber== trap_Katana)
+	{
+		m_RoomNumber = BackGround0;
+	}
+	
+}
+

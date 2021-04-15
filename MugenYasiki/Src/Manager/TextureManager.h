@@ -7,11 +7,16 @@
 
 enum 
 {
-	texture0,
-	texture1,
-	texture2,
-	texture3,
-	texture4,
+	tunagi_Ogre,
+	oiran_Ogre,
+	bag_Ogre,
+	small_Ogre1,
+	small_Ogre2,
+	peep_Ogre,
+	gaze_Ogre,
+	lie_Ogre,
+	crawling_Ogre,
+
 	left_stop,
 	left_Animation0,
 	left_Animation1,
@@ -30,7 +35,30 @@ enum
 	right_Animation5,
 	right_Animation6,
 	right_Animation7,
+
+	TextBar,
+	CharacterTextBar0,
+	CharacterTextBar1,
+	CharacterTextBar2,
+	CharacterTextBar3,
+
+	titleTexture0,
+	titleTexture1,
+	titleTexture2,
+
+	BackGround0,
+	BackGround1,
+	BackGround2,
+	BackGround3,
+
 	trap_Katana,
+
+	item_candle,
+	item_hagoromo,
+	item_Scissors,
+	item_Japanese_doll,
+
+	Mark,
 
 	textureMax,
 };
@@ -43,7 +71,6 @@ public:
 	void DeleteSceneTexture();
 
 	int GetTextureDate(int num);
-	int GetTextureDateArray(int num[]);
 private:
 	int TextureDate[textureMax];
 	int TextureDateArray[AnimationMax];
