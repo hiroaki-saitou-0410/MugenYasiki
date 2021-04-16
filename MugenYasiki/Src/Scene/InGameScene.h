@@ -22,6 +22,7 @@
 
 #include"../Gimmick/ActionMark.h"
 #include"../Gimmick/Katana.h"
+#include"../Gimmick/Shuriken.h"
 
 class InGameScene :public SceneBase
 {
@@ -52,8 +53,6 @@ private:
 	bool isfade_in = false;
 	bool after_acti = false;
 	bool dead = false;
-	
-	Items items;
 
 	int m_hp;
 	int m_alpha = 0;

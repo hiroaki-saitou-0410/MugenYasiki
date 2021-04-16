@@ -20,14 +20,11 @@ public:
 	bool IsDraw() { return Draw_katana; }
 	bool IsFall() { return fall; }
 
-
 private:
 	bool after_acti = false;
-	bool Draw_katana = true;
+	bool Draw_katana = false;
 	bool fall = false;
-	int m_PosX= 800;
-	int m_PosY= 0;
-	int m_fall_speed = 5;
+	int m_fall_speed = 7;
 };
 
 #endif // !KATANA_H

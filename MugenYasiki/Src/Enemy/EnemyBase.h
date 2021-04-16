@@ -2,8 +2,9 @@
 #define ENEMY_BASE_H
 
 #include"../Definition.h"
+#include"../Base.h"
 
-class EnemyBase
+class EnemyBase:public Base
 {
 public:
 	EnemyBase();

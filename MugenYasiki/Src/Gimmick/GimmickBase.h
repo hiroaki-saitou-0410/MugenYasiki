@@ -10,8 +10,11 @@ public:
 	virtual void Exec();
 	virtual bool Collision(int x_, int y_);
 
-private:
-
+protected:
+	int m_PosX;
+	int m_PosY;
+	int m_TextureX;
+	int m_TextureY;
 };
 
 #endif // !GIMMICK_BASE_H

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Base.h" />
     <ClInclude Include="Src\Definition.h" />
     <ClInclude Include="Src\Enemy\BagOger.h" />
     <ClInclude Include="Src\Enemy\EnemyBase.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Src\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Base.cpp" />
     <ClCompile Include="Src\Enemy\BagOger.cpp" />
     <ClCompile Include="Src\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Src\Enemy\GazeOger.cpp" />

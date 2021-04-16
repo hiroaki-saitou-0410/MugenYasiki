@@ -46,6 +46,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 
 		//Trap
 		TextureDate[trap_Katana] = LoadGraph("Res/Trap/katana2.png");
+		TextureDate[trap_Shuriken] = LoadGraph("Res/Trap/Shuriken.png");
 
 		//Item
 		TextureDate[item_candle] = LoadGraph("Res/Item/Candle.png");

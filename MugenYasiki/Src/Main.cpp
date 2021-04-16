@@ -10,7 +10,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 {
 	SetOutApplicationLogValidFlag(FALSE);
 	ChangeWindowMode(TRUE);
-	SetGraphMode(WindowHeight, WindowWidth,32);
+	SetGraphMode(WindowWidth, WindowHeight,32);
 	SetBackgroundColor(0, 0, 0);
 	SetMainWindowText("–³ŒÀ‰®•~");
 	if (DxLib_Init() == -1) { return -1; }

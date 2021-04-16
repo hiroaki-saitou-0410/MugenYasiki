@@ -52,6 +52,7 @@ enum
 	BackGround3,
 
 	trap_Katana,
+	trap_Shuriken,
 
 	item_candle,
 	item_hagoromo,

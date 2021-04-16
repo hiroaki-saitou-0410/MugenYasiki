@@ -38,6 +38,7 @@ Item item;
 ActionMark actionMark;
 Katana katana;
 EnemyBase Ebase;
+Shuriken shuriken;
 
 InGameScene::InGameScene()
 {
@@ -93,60 +94,26 @@ void InGameScene::Exec()
 			m_OgreNumber = GetRand(8);
 		}
 
-		katana.Exec(player.GetPosX(), Player_Y);
+		//katana.Exec(player.GetPosX(), player.GetPosY());
+		shuriken.Exec(player.GetPosX(), player.GetPosY());
 
-		if (katana.Collision(player.GetPosX(), Player_Y))
+		if (katana.Collision(player.GetPosX(), player.GetPosY()))
 		{
 			switch (katana.IsFall())
 			{
 			case true:dead = true;	break;
-			case false:
-				if (player.ItemGet())
-				{
-					items.have_katana = true;
-				}
-				break;
+			case false:if (player.ItemGet()){player.items.have_katana = true;}break;
 			}
 		}
-	
-		//刀の落下ーーーーーーーーーーーーーーーーーギミック
-		//if ((katana.GetPosX() - 40) <= player.GetPosX() + 112)
-		//{
-		//	fall = true;
-		//}
-		//if (fall)
-		//{
-		//	if (katana.GetPosY() <= 620)	//845-225	225-(58(283-225))=167
-		//	{
-		//		katana.GetPosY() += fall_speed;
-		//		if (katana.GetPosY() >= 620 - 58)
-		//		{
-		//			after_acti = true;
-		//		}
-		//	}
-		//}
-		////刀の当たり判定
-		//if (katana.GetPosX() + 11 > player.GetPosX() + 56 &&
-		//	katana.GetPosX() + 11 < player.GetPosX() + 168 &&
-		//	!after_acti && !dead)
-		//{
-		//	if (katana.GetPosY() + 225 > WindowWidth - 700)
-		//	{
-		//		death_count++;
-		//		dead = true;
-		//	}
-		//}
-		//if (katana.GetPosX() + 11 > player.GetPosX() + 56 && katana.GetPosX() + 11 < player.GetPosX() + 168 && after_acti && !dead)
-		//{
-		//	have_katana = true;
-		//	trap_katana = false;
-		//}
-		//ーーーーーーーーーーーーーーーーーーーーーーーーーーギミック
 
-		// プレイヤーと鬼の当たり判定
-		if (Ebase.Collision(player.GetPosX(), Player_Y, EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]))
+		if (shuriken.Collision(player.GetPosX(), player.GetPosY()))
 		{
-			switch (items.have_katana)
+
+		}
+		
+		if (Ebase.Collision(player.GetPosX(), player.GetPosY(), EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber], EnemyPosX[m_OgreNumber]))
+		{
+			switch (player.items.have_katana)
 			{
 			case true:	orc_dead = true;	break;
 
@@ -174,14 +141,14 @@ void InGameScene::Draw()
 	DrawGraph(400, TextBar_Y-309, textureManager->GetTextureDate(m_ItemNumber), TRUE);
 
 	//Player
-	DrawGraph(player.GetPosX(), Player_Y, textureManager->GetTextureDate(m_MoveIndex), TRUE);
+	DrawGraph(player.GetPosX(), player.GetPosY(), textureManager->GetTextureDate(m_MoveIndex), TRUE);
 
 	if (actionMark.Collition(player.GetPosX(),player.IsRight()))
 	{
-		DrawGraph(player.GetPosX()+82, Player_Y - 50, textureManager->GetTextureDate(Mark), TRUE);
+		DrawGraph(player.GetPosX()+82, player.GetPosY() - 50, textureManager->GetTextureDate(Mark), TRUE);
 	}
 	//Trap_Katana
-	if (katana.IsDraw()==true &&items.have_katana==false)
+	if (katana.IsDraw()==true &&player.items.have_katana==false)
 	{
 		if (katana.GetPosX() <= 620 - 58)
 		{
@@ -198,7 +165,7 @@ void InGameScene::Draw()
 		//	//DrawRectGraph(katana.GetPosX(), katana.GetPosY(), 0, 0, 22, int(787 - katana.GetPosY()), textureManager->GetTextureDate(trap_Katana), TRUE, FALSE);
 		//}
 	}
-
+	DrawGraph(shuriken.GetPosX(), shuriken.GetPosY(), textureManager->GetTextureDate(trap_Shuriken), TRUE);
 	
 	//Orc
 	if (orc_dead == true)
@@ -229,12 +196,12 @@ void InGameScene::Draw()
 	//DrawFormatString(100, 100, GetColor(255, 0, 0), "%d", death_count);
 
 	//Debug�p
-	if (Ebase.Collision(player.GetPosX() + 70, Player_Y, EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]) == true)
+	if (Ebase.Collision(player.GetPosX() + 70, player.GetPosY(), EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]) == true)
 	{
 		DrawString(100, 100, "HIT", GetColor(255, 255, 255));
 	}
 	
-	if (katana.Collision(player.GetPosX(), Player_Y))
+	if (katana.Collision(player.GetPosX(), player.GetPosY()))
 	{
 		DrawString(100, 20, "刀:HIT", GetColor(255, 255, 255));
 	}
@@ -242,7 +209,7 @@ void InGameScene::Draw()
 	{
 		DrawString(100, 140, "落ちてる", GetColor(255, 255, 255));
 	}
-	if (items.have_katana == true)
+	if (player.items.have_katana == true)
 	{
 		DrawString(100, 160, "刀：持ってる", GetColor(255, 255, 255));
 	}
@@ -255,7 +222,7 @@ void InGameScene::Draw()
 	
 	DrawBox(orc_x, EnemyPosY[m_OgreNumber], orc_x + EnemyTexture_X[m_OgreNumber], EnemyPosY[m_OgreNumber] + EnemyTexture_Y[m_OgreNumber], GetColor(255, 255, 255), FALSE);
 	
-	DrawBox(player.GetPosX() + 70, Player_Y, player.GetPosX() + PlayerTexture_X, Player_Y + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);
+	DrawBox(player.GetPosX() + 70, player.GetPosY(), player.GetPosX() + PlayerTexture_X, player.GetPosY() + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);
 	//*/
 }
 
