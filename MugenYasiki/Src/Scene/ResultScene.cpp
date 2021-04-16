@@ -1,4 +1,4 @@
-#include "ResultScene.h"
+ï»¿#include "ResultScene.h"
 
 enum
 {
@@ -12,9 +12,11 @@ ResultScene::ResultScene()
 	gamenManager = GameManager::GetInstance();
 	inputManager = InputManager::GetInstance();
 	textureManager = TextureManager::GetInstance();
+	soundManager = SoundManager::GetInstance();
 
 	SceneManager::GetInstance()->SetNextScene(Result);
 	textureManager->LoadSceneTexture(Result);
+	soundManager->LoadSceneSound(Result);
 
 	m_Step = STEP_RESULT;
 }
@@ -40,7 +42,7 @@ void ResultScene::Exec()
 
 void ResultScene::Draw()
 {
-	DrawString(200, 900, "ƒŠƒUƒ‹ƒg", GetColor(255, 255, 255));
+	DrawString(200, 900, "ãƒªã‚¶ãƒ«ãƒˆ", GetColor(255, 255, 255));
 }
 
 void ResultScene::Step_InTexture()

@@ -46,9 +46,11 @@ InGameScene::InGameScene()
 	gamenManager = GameManager::GetInstance();
 	inputManager = InputManager::GetInstance();
 	textureManager = TextureManager::GetInstance();
+	soundManager = SoundManager::GetInstance();
 
 	SceneManager::GetInstance()->SetNextScene(InGame);
 	textureManager->LoadSceneTexture(InGame);
+	soundManager->LoadSceneSound(InGame);
 
 	m_RightMotionMax = right_Animation7;
 	m_LeftMotionMax = left_Animation7;
@@ -66,6 +68,7 @@ InGameScene::InGameScene()
 InGameScene::~InGameScene()
 {
 	textureManager->DeleteSceneTexture();
+	soundManager->DeleteSceneSound();
 }
 
 void InGameScene::Exec()
