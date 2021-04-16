@@ -1,4 +1,4 @@
-#ifndef INGAMESCENE_H
+﻿#ifndef INGAMESCENE_H
 #define INGAMESCENE_H
 
 #include"DxLib.h"
@@ -7,6 +7,7 @@
 #include"../Manager/InputManager.h"
 #include"../Manager/SceneManager.h"
 #include"../Manager/TextureManager.h"
+#include"../Manager/SoundManager.h"
 
 #include"../Player/Player.h"
 
@@ -44,6 +45,7 @@ private:
 	GameManager* gamenManager = nullptr;
 	InputManager* inputManager = nullptr;
 	TextureManager* textureManager = nullptr;
+	SoundManager* soundManager = nullptr;
 
 	//bool IsCollision(int Aposx_, int Aposy_, int Bposx_, int Bposy_, int Awidth, int Aheight, int Bwidth, int Bheight);
 

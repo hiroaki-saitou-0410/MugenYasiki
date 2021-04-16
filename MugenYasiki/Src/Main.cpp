@@ -1,9 +1,10 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include"Definition.h"
 #include"Manager/GameManager.h"
 #include"Manager/InputManager.h"
 #include"Manager/SceneManager.h"
 #include"Manager/TextureManager.h"
+#include"Manager/SoundManager.h"
 #include"Player/Player.h"
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -12,16 +13,17 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	ChangeWindowMode(TRUE);
 	SetGraphMode(WindowHeight, WindowWidth,32);
 	SetBackgroundColor(0, 0, 0);
-	SetMainWindowText("–³ŒÀ‰®•~");
+	SetMainWindowText("ç„¡é™å±‹æ•·");
 	if (DxLib_Init() == -1) { return -1; }
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	//ŠÇ—ƒNƒ‰ƒX
+	//ç®¡ç†ã‚¯ãƒ©ã‚¹
 	InputManager::CreateInstance();
 	InputManager* inputManager = InputManager::GetInstance();
 	GameManager::CreateInstance();
 	TextureManager::CreateInstance();
+	SoundManager::CreateInstance();
 	SceneManager::CreateInstance();
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	
@@ -35,7 +37,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		clsDx();
 
 		//===========
-		//ˆ—ŠÖ”ŒÄ‚Ño‚µ
+		//å‡¦ç†é–¢æ•°å‘¼ã³å‡ºã—
 		//===========
 		sceneManager->Exec();
 
@@ -47,6 +49,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	GameManager::DeleteInstance();
 	InputManager::DeleteInstance();
 	TextureManager::DeleteInstance();
+	SoundManager::DeleteInstance();
 	SceneManager::DeleteInstance();
 	inputManager = nullptr;
 	sceneManager = nullptr;

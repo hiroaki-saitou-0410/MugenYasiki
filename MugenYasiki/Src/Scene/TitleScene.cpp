@@ -1,4 +1,4 @@
-#include "TitleScene.h"
+ï»¿#include "TitleScene.h"
 
 enum 
 {
@@ -9,13 +9,15 @@ enum
 
 TitleScene::TitleScene()
 {
-	//ŠeƒCƒ“ƒXƒ^ƒ“ƒX
+	//å„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	gamenManager = GameManager::GetInstance();
 	inputManager = InputManager::GetInstance();
 	textureManager = TextureManager::GetInstance();
+	soundManager = SoundManager::GetInstance();
 
 	SceneManager::GetInstance()->SetNextScene(Title);
 	textureManager->LoadSceneTexture(Title);
+	soundManager->LoadSceneSound(Title);
 	m_Step = STEP_LOGO;
 	number = 0;
 }
@@ -23,6 +25,7 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {
 	textureManager->DeleteSceneTexture();
+	soundManager->DeleteSceneSound();
 }
 
 void TitleScene::Exec()
@@ -34,6 +37,11 @@ void TitleScene::Exec()
 	default:break;
 	}
 	
+	if (CheckSoundMem(soundManager->GetSoundDate(titleSound)) == 0)
+	{
+		soundManager->PlaySceneSound(soundManager->GetSoundDate(titleSound), DX_PLAYTYPE_LOOP, TRUE, 50);
+	}
+
 }
 
 void TitleScene::Draw()

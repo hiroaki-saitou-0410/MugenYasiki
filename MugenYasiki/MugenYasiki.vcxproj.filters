@@ -94,6 +94,9 @@
     <ClInclude Include="Src\Gimmick\Shuriken.h">
       <Filter>ソース ファイル\Gimmick</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Manager\SoundManager.h">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp">
@@ -161,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="Src\Gimmick\Shuriken.cpp">
       <Filter>ソース ファイル\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Manager\SoundManager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
