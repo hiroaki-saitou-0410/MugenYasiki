@@ -38,6 +38,7 @@ public:
 	bool IsStop() { return m_IsStop; }
 	bool IsRight() { return m_IsRight; }
 	bool ItemGet() { return m_GetItem; }
+	bool IsDecision() { return m_IsDecision; }
 
 	Items items;
 private:
@@ -50,6 +51,7 @@ private:
 	int m_Vector;
 	const int m_Speed = 4;
 
+	bool m_IsDecision = false;
 	bool m_IsTouchingRoom = true;
 	bool m_IsAttack = false;
 	bool m_GetItem = false;

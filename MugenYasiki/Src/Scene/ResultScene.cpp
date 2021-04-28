@@ -1,4 +1,4 @@
-ï»¿#include "ResultScene.h"
+#include "ResultScene.h"
 
 enum
 {
@@ -23,6 +23,8 @@ ResultScene::ResultScene()
 
 ResultScene::~ResultScene()
 {
+	textureManager->DeleteSceneTexture();
+	soundManager->DeleteSceneSound();
 }
 
 bool ResultScene::IsEnd() const
@@ -42,7 +44,7 @@ void ResultScene::Exec()
 
 void ResultScene::Draw()
 {
-	DrawString(200, 900, "ãƒªã‚¶ãƒ«ãƒˆ", GetColor(255, 255, 255));
+	DrawString(200, 900, "ƒŠƒUƒ‹ƒg", GetColor(255, 255, 255));
 }
 
 void ResultScene::Step_InTexture()

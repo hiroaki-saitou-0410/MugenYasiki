@@ -1,15 +1,15 @@
-﻿#include "SoundManager.h"
+#include "SoundManager.h"
 
 void SoundManager::LoadSceneSound(SceneID sceneid)
 {
 	switch (sceneid)
 	{
 	case Title:
-		SoundDate[titleSound] = LoadSoundMem("Res/BackGround/Title.mp3");
+		SoundDate[titleSound] = LoadSoundMem("Res/Sound/Title.mp3");
 		break;
 
 	case InGame:
-		
+
 		break;
 
 		//case Result:
@@ -35,6 +35,6 @@ int SoundManager::GetSoundDate(int num)
 
 void SoundManager::PlaySceneSound(int num, int playType, int top, int volume)
 {
-	ChangeNextPlayVolumeSoundMem(volume, num);
+	ChangeVolumeSoundMem(volume, num);
 	PlaySoundMem(num, playType, top);
 }

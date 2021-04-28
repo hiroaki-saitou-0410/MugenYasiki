@@ -2,7 +2,8 @@
 
 Katana::Katana()
 {
-	m_PosX = 800;
+	m_PosX = Otiru_katana;
+	m_MaxPosY = 562;
 	m_TextureX = 25;
 	m_TextureY = 225;
 }
@@ -11,10 +12,10 @@ Katana::~Katana()
 {
 }
 
-void Katana::Exec(int x_,int y_)
+void Katana::Exec(int x_)
 {
 	//—Ž‰º
-	if ((m_PosX - 40) <= x_ + 112)//GimmickPosX
+	if ((m_PosX - 40) <= x_ + PlayerTexture_X && m_PosX + m_TextureX >= x_)//GimmickPosX
 	{
 		fall = true;
 		Draw_katana = true;
@@ -24,15 +25,19 @@ void Katana::Exec(int x_,int y_)
 		if (m_PosY <= 620)//845-225	225-(58(283-225))=167
 		{
 			m_PosY += m_fall_speed;
-			if (m_PosY >= 562)
-			{
-				after_acti = true;
-			}
 		}
 		else
 		{
 			fall = false;
 		}
+	}
+}
+
+void Katana::Draw(int texture)
+{
+	if (Draw_katana == true)
+	{
+		DrawRectGraph(m_PosX, m_PosY, 0, 0, 22, int(787 - m_PosY), texture, TRUE, FALSE);
 	}
 }
 

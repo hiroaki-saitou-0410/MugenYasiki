@@ -8,6 +8,7 @@ public:
 	virtual ~GimmickBase();
 
 	virtual void Exec();
+	virtual void Draw(int texture);
 	virtual bool Collision(int x_, int y_);
 
 protected:

@@ -47,12 +47,13 @@ enum
 	titleTexture2,
 
 	BackGround0,
-	BackGround1,
-	BackGround2,
-	BackGround3,
+	Entrance,
+	Corridor,
+	Hall,
 
 	trap_Katana,
 	trap_Shuriken,
+	trap_arrow,
 
 	item_candle,
 	item_hagoromo,
@@ -74,7 +75,6 @@ public:
 	int GetTextureDate(int num);
 private:
 	int TextureDate[textureMax];
-	int TextureDateArray[AnimationMax];
 };
 
 #endif // !TEXTURE_MANAGER_H

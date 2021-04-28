@@ -13,9 +13,9 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 	case InGame:
 		//BackGround
 		TextureDate[BackGround0] = LoadGraph("Res/BackGround/Background.jpg");
-		TextureDate[BackGround1] = LoadGraph("Res/BackGround/Entrance.jpg");
-		TextureDate[BackGround2] = LoadGraph("Res/BackGround/Corridor.jpg");
-		TextureDate[BackGround3] = LoadGraph("Res/BackGround/Hall.jpg");
+		TextureDate[Entrance] = LoadGraph("Res/BackGround/Entrance.jpg");//å∫ä÷
+		TextureDate[Corridor] = LoadGraph("Res/BackGround/Corridor.jpg");//òLâ∫
+		TextureDate[Hall] = LoadGraph("Res/BackGround/Hall.jpg");	//çLä‘
 
 		//textBar
 		TextureDate[TextBar] = LoadGraph("Res/TextBar/text_bar.png");
@@ -47,6 +47,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		//Trap
 		TextureDate[trap_Katana] = LoadGraph("Res/Trap/katana2.png");
 		TextureDate[trap_Shuriken] = LoadGraph("Res/Trap/Shuriken.png");
+		TextureDate[trap_arrow] = LoadGraph("Res/Trap/arrow.png");
 
 		//Item
 		TextureDate[item_candle] = LoadGraph("Res/Item/Candle.png");

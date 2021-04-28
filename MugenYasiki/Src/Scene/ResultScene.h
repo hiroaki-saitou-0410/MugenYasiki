@@ -1,4 +1,4 @@
-﻿#ifndef RESULT_SCENE_H
+#ifndef RESULT_SCENE_H
 #define RESULT_SCENE_H
 
 #include"SceneBase.h"

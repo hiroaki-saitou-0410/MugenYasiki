@@ -1,4 +1,4 @@
-﻿#ifndef TITLE_SCENE_H
+#ifndef TITLE_SCENE_H
 #define TITLE_SCENE_H
 
 #include"SceneBase.h"
@@ -17,6 +17,7 @@ public:
 
 	void Exec();
 	void Draw();
+	void Sound();
 	virtual bool IsEnd()const;
 
 	void Step_Logo();

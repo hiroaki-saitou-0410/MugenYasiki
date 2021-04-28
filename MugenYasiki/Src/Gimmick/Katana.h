@@ -3,6 +3,7 @@
 
 #include"GimmickBase.h"
 #include"../Definition.h"
+#include"DxLib.h"
 
 class Katana:public GimmickBase
 {
@@ -10,7 +11,8 @@ public:
 	Katana();
 	~Katana();
 
-	void Exec(int x_, int y_);
+	void Exec(int x_);
+	void Draw(int texture);
 	bool Collision(int x_,int y_);
 
 	int GetPosX() { return m_PosX; }
@@ -22,9 +24,10 @@ public:
 
 private:
 	bool after_acti = false;
-	bool Draw_katana = false;
+	bool Draw_katana = true;
 	bool fall = false;
-	int m_fall_speed = 7;
+	const int m_fall_speed = 7;
+	int m_MaxPosY;
 };
 
 #endif // !KATANA_H

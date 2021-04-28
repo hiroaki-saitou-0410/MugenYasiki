@@ -29,8 +29,10 @@
     <ClInclude Include="Src\Enemy\SmallOger.h" />
     <ClInclude Include="Src\Enemy\TunagiOger.h" />
     <ClInclude Include="Src\Gimmick\ActionMark.h" />
+    <ClInclude Include="Src\Gimmick\Arrow.h" />
     <ClInclude Include="Src\Gimmick\GimmickBase.h" />
     <ClInclude Include="Src\Gimmick\Katana.h" />
+    <ClInclude Include="Src\Gimmick\katanaTukiage.h" />
     <ClInclude Include="Src\Gimmick\Shuriken.h" />
     <ClInclude Include="Src\Item\Item.h" />
     <ClInclude Include="Src\Manager\GameManager.h" />
@@ -55,8 +57,10 @@
     <ClCompile Include="Src\Enemy\SmallOger.cpp" />
     <ClCompile Include="Src\Enemy\TunagiOger.cpp" />
     <ClCompile Include="Src\Gimmick\ActionMark.cpp" />
+    <ClCompile Include="Src\Gimmick\Arrow.cpp" />
     <ClCompile Include="Src\Gimmick\GimmickBase.cpp" />
     <ClCompile Include="Src\Gimmick\Katana.cpp" />
+    <ClCompile Include="Src\Gimmick\katanaTukiage.cpp" />
     <ClCompile Include="Src\Gimmick\Shuriken.cpp" />
     <ClCompile Include="Src\Item\Item.cpp" />
     <ClCompile Include="Src\Main.cpp" />

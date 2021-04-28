@@ -9,7 +9,8 @@ public:
 	ActionMark();
 	~ActionMark();
 
-	bool Collition(int P_Pos,int IsRight);
+	bool CollitionR(int P_Pos,bool IsRight);
+	bool CollitionL(int P_Pos,bool IsRight);
 private:
 
 };

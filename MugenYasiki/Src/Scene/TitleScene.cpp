@@ -1,4 +1,4 @@
-ï»¿#include "TitleScene.h"
+#include "TitleScene.h"
 
 enum 
 {
@@ -9,7 +9,7 @@ enum
 
 TitleScene::TitleScene()
 {
-	//å„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	//ŠeƒCƒ“ƒXƒ^ƒ“ƒX
 	gamenManager = GameManager::GetInstance();
 	inputManager = InputManager::GetInstance();
 	textureManager = TextureManager::GetInstance();
@@ -25,23 +25,20 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {
 	textureManager->DeleteSceneTexture();
-	soundManager->DeleteSceneSound();
+	//soundManager->DeleteSceneSound()
+	//ˆêŽž“I‚É•ÏX
+	DeleteSoundMem(soundManager->GetSoundDate(titleSound));
 }
 
 void TitleScene::Exec()
 {
 	switch (m_Step)
 	{
-	case STEP_LOGO:Step_Logo(); break;
-	case STEP_INPUT:Step_Input(); break;	
+	case STEP_LOGO:Step_Logo(); Sound(); break;
+	case STEP_INPUT:Step_Input(); break;
 	default:break;
-	}
+	}	
 	
-	if (CheckSoundMem(soundManager->GetSoundDate(titleSound)) == 0)
-	{
-		soundManager->PlaySceneSound(soundManager->GetSoundDate(titleSound), DX_PLAYTYPE_LOOP, TRUE, 50);
-	}
-
 }
 
 void TitleScene::Draw()
@@ -69,6 +66,11 @@ void TitleScene::Draw()
 	//DrawGraph(0, 0, textureManager->GetTextureDate(titleTexture2), FALSE);
 }
 
+void TitleScene::Sound()
+{
+	soundManager->PlaySceneSound(soundManager->GetSoundDate(titleSound), DX_PLAYTYPE_LOOP, TRUE, 255);
+}
+
 bool TitleScene::IsEnd() const
 {
 	return (m_Step == STEP_END);
@@ -83,6 +85,10 @@ void TitleScene::Step_Input()
 {
 	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
 	{
+		if (CheckSoundMem(soundManager->GetSoundDate(titleSound)) == TRUE)
+		{
+			StopSoundMem(soundManager->GetSoundDate(titleSound));
+		}
 		m_Step = STEP_END;
 		SceneManager::GetInstance()->SetNextScene(InGame);
 	}

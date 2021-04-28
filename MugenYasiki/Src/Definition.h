@@ -1,7 +1,7 @@
 #ifndef DEFINITION_H
 #define DEFINITION_H
 
-const int WindowHeight = 1080;
+const int WindowHeight = 1000;
 const int WindowWidth = 1920;
 
 const int AnimationMax = 8;
@@ -21,6 +21,19 @@ const int LeftLimitPosX = 100;
 
 const int FallStopLimit = 620 - 58;
 
+//ここを変更すると最初の初期座標を変えれます
+
+const int TukiagePosX = 700;		//刀突き上げの初期座標
+const int Otiru_katana = 800;		//刀落下の初期座標
+const int Shuriken_MoveStart = 900; //手裏剣が動き出す座標
+const int ShurikenPosX = 1920;		//手裏剣の初期座標
+const int ArrowStartPos = 1920;		//矢の初期スタート値
+const int ArrowHeight = 100;		//矢の高さ
+
+
+
+
+//============================
 
 enum SceneID
 {

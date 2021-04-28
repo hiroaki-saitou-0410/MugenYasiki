@@ -1,4 +1,4 @@
-﻿#ifndef INGAMESCENE_H
+#ifndef INGAMESCENE_H
 #define INGAMESCENE_H
 
 #include"DxLib.h"
@@ -24,6 +24,36 @@
 #include"../Gimmick/ActionMark.h"
 #include"../Gimmick/Katana.h"
 #include"../Gimmick/Shuriken.h"
+#include"../Gimmick/katanaTukiage.h"
+
+enum MoveType
+{
+	stop_R,
+	stop_L,
+	move_R,
+	move_L,
+	jamp,
+}; 
+
+enum Rooms
+{
+	Strat_Hall = 10,
+	Floor2_Hall,
+	Floor2_Hall1,
+	Floor2_Hall2,
+	Floor2_Hall3,
+	Floor2_Corridor,
+	Floor2_Corridor1,
+	Floor2_Corridor2,
+	Floor2_Corridor3,
+
+	Father_room = 20,
+	Floor1_Corridorl,
+	Floor1_Hall,
+	Workshop,
+	G_Entrance,
+
+};
 
 class InGameScene :public SceneBase
 {
@@ -34,6 +64,12 @@ public:
 public:
 	void Exec();
 	void Draw();
+	void GimmickExec();
+	void EnemyExec();
+
+	void GimmickDraw();
+	void EnemyDraw();
+
 	virtual bool IsEnd()const;
 
 	void Step_Pause();
@@ -47,7 +83,8 @@ private:
 	InputManager* inputManager = nullptr;
 	TextureManager* textureManager = nullptr;
 	SoundManager* soundManager = nullptr;
-
+	MoveType moveType = stop_R;
+	Rooms rooms = Strat_Hall;
 	//bool IsCollision(int Aposx_, int Aposy_, int Bposx_, int Bposy_, int Awidth, int Aheight, int Bwidth, int Bheight);
 
 	bool FinishedScene =false;
@@ -55,6 +92,7 @@ private:
 	bool isfade_in = false;
 	bool after_acti = false;
 	bool dead = false;
+	bool m_RoomChange = false;
 
 	int m_hp;
 	int m_alpha = 0;

@@ -2,7 +2,6 @@
 
 Player::Player()
 {
-	
 	inputManager = InputManager::GetInstance();
 	m_PosX = 100;
 	m_IsRight = true;
@@ -41,7 +40,16 @@ void Player::Exec()
 	{
 		m_IsTouchingRoom = false;
 	}
-	
+
+	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))//Œˆ’è
+	{
+		m_IsDecision = true;
+	}
+	else
+	{
+		m_IsDecision = false;
+	}
+
 	if (inputManager->IsKeyPushed(KEY_INPUT_DOWN))//ƒAƒCƒeƒ€Žæ“¾
 	{
 		m_GetItem = true;
@@ -50,14 +58,12 @@ void Player::Exec()
 	{
 		m_GetItem = false;
 	}
-	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
-	{
 
-	}
 	if (inputManager->IsKeyPushed(KEY_INPUT_SPACE))
 	{
 		m_IsAttack = true;
 	}
+
 	if (m_IsTouchingRoom==false)
 	{
 		Jump();

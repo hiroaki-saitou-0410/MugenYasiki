@@ -1,4 +1,4 @@
-﻿#ifndef SOUND_MANAGER_H
+#ifndef SOUND_MANAGER_H
 #define SOUND_MANAGER_H
 
 #include"DxLib.h"
