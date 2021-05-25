@@ -22,8 +22,11 @@
     <ClInclude Include="Src\Base.h" />
     <ClInclude Include="Src\Definition.h" />
     <ClInclude Include="Src\Enemy\BagOger.h" />
+    <ClInclude Include="Src\Enemy\Boss.h" />
     <ClInclude Include="Src\Enemy\EnemyBase.h" />
     <ClInclude Include="Src\Enemy\GazeOger.h" />
+    <ClInclude Include="Src\Enemy\LieOgre.h" />
+    <ClInclude Include="Src\Enemy\OgreDefinition.h" />
     <ClInclude Include="Src\Enemy\OiranOger.h" />
     <ClInclude Include="Src\Enemy\PeepOger.h" />
     <ClInclude Include="Src\Enemy\SmallOger.h" />
@@ -31,10 +34,18 @@
     <ClInclude Include="Src\Gimmick\ActionMark.h" />
     <ClInclude Include="Src\Gimmick\Arrow.h" />
     <ClInclude Include="Src\Gimmick\GimmickBase.h" />
+    <ClInclude Include="Src\Gimmick\GimmickDefinition.h" />
     <ClInclude Include="Src\Gimmick\Katana.h" />
     <ClInclude Include="Src\Gimmick\katanaTukiage.h" />
+    <ClInclude Include="Src\Gimmick\OgreRain.h" />
+    <ClInclude Include="Src\Gimmick\ScaringOgre.h" />
     <ClInclude Include="Src\Gimmick\Shuriken.h" />
+    <ClInclude Include="Src\Gimmick\SwordRain.h" />
+    <ClInclude Include="Src\Item\Amulet.h" />
     <ClInclude Include="Src\Item\Item.h" />
+    <ClInclude Include="Src\Item\Item_Definition.h" />
+    <ClInclude Include="Src\Item\JapaneseDoll.h" />
+    <ClInclude Include="Src\Item\Scissors.h" />
     <ClInclude Include="Src\Manager\GameManager.h" />
     <ClInclude Include="Src\Manager\InputManager.h" />
     <ClInclude Include="Src\Manager\SceneManager.h" />
@@ -50,8 +61,10 @@
   <ItemGroup>
     <ClCompile Include="Src\Base.cpp" />
     <ClCompile Include="Src\Enemy\BagOger.cpp" />
+    <ClCompile Include="Src\Enemy\Boss.cpp" />
     <ClCompile Include="Src\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Src\Enemy\GazeOger.cpp" />
+    <ClCompile Include="Src\Enemy\LieOgre.cpp" />
     <ClCompile Include="Src\Enemy\OiranOger.cpp" />
     <ClCompile Include="Src\Enemy\PeepOger.cpp" />
     <ClCompile Include="Src\Enemy\SmallOger.cpp" />
@@ -61,8 +74,14 @@
     <ClCompile Include="Src\Gimmick\GimmickBase.cpp" />
     <ClCompile Include="Src\Gimmick\Katana.cpp" />
     <ClCompile Include="Src\Gimmick\katanaTukiage.cpp" />
+    <ClCompile Include="Src\Gimmick\OgreRain.cpp" />
+    <ClCompile Include="Src\Gimmick\ScaringOgre.cpp" />
     <ClCompile Include="Src\Gimmick\Shuriken.cpp" />
+    <ClCompile Include="Src\Gimmick\SwordRain.cpp" />
+    <ClCompile Include="Src\Item\Amulet.cpp" />
     <ClCompile Include="Src\Item\Item.cpp" />
+    <ClCompile Include="Src\Item\JapaneseDoll.cpp" />
+    <ClCompile Include="Src\Item\Scissors.cpp" />
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\Manager\GameManager.cpp" />
     <ClCompile Include="Src\Manager\InputManager.cpp" />

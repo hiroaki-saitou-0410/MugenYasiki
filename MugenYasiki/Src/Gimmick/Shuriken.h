@@ -4,6 +4,7 @@
 #include"GimmickBase.h"
 #include"../Definition.h"
 #include"DxLib.h"
+#include"GimmickDefinition.h"
 
 class Shuriken:public GimmickBase
 {

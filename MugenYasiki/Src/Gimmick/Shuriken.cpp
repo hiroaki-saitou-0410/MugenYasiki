@@ -2,11 +2,9 @@
 
 Shuriken::Shuriken()
 {
-	m_TextureX = 36;
-	m_TextureY = 35;
 	//m_PosX = WindowWidth;
 	m_PosX = ShurikenPosX;
-	m_PosY = TextBar_Y - m_TextureX*2;
+	m_PosY = TextBar_Y - ShurikenTextureX *2;
 	m_DrawTime = 0;
 }
 
@@ -43,16 +41,16 @@ void Shuriken::Draw(int texture,float pi)
 {
 	if (IsDraw == true)
 	{
-		DrawRotaGraph2(m_PosX, m_PosY, m_TextureX / 2, m_TextureY / 2, 1.0, pi, texture, true);
+		DrawRotaGraph2(m_PosX, m_PosY, ShurikenTextureX / 2, ShurikenTextureY / 2, 1.0, pi, texture, true);
 	}
 }
 
 bool Shuriken::Collision(int x_, int y_)
 {
-	if (m_PosX + m_TextureX > x_ + 56 &&
+	if (m_PosX + ShurikenTextureX > x_ + 56 &&
 		m_PosX < x_ + 168)
 	{
-		if (m_PosY + m_TextureY > y_ &&
+		if (m_PosY + ShurikenTextureY > y_ &&
 			m_PosY < y_ + PlayerTexture_Y)
 		{
 			return true;

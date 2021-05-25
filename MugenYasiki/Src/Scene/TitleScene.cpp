@@ -34,7 +34,9 @@ void TitleScene::Exec()
 {
 	switch (m_Step)
 	{
-	case STEP_LOGO:Step_Logo(); Sound(); break;
+	case STEP_LOGO:Step_Logo();
+		//Sound();
+		break;
 	case STEP_INPUT:Step_Input(); break;
 	default:break;
 	}	
@@ -54,6 +56,7 @@ void TitleScene::Draw()
 	default:
 		break;
 	}
+	
 
 	if (inputManager->IsKeyPushed(KEY_INPUT_1))
 	{

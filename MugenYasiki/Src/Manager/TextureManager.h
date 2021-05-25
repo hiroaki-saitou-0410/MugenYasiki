@@ -16,6 +16,7 @@ enum
 	gaze_Ogre,
 	lie_Ogre,
 	crawling_Ogre,
+	boss_Ogre,
 
 	left_stop,
 	left_Animation0,
@@ -54,13 +55,43 @@ enum
 	trap_Katana,
 	trap_Shuriken,
 	trap_arrow,
+	gaze_eye,
+	oiran_smoku,
+	lie_wet,
+	boss_blood,
+	flontPeepOgre,
+	flontGazeOgre,
+
 
 	item_candle,
 	item_hagoromo,
 	item_Scissors,
 	item_Japanese_doll,
+	item_Amulet,
+	item_Amulet_light,
+	item_diary,
+
+	item_Get_Scissors,
+	item_Get_Japanese_doll,
+	item_Get_hagoromo,
+	item_Get_Amulet,
+	item_Get_diary,
+	item_Get_itemframe,
+
+	explosion1,
+	explosion2,
+	explosion3,
+	explosion4,
+	explosion5,
+	explosion6,
+	explosion7,
+	explosion8,
+	explosion9,
+	explosion10,
+	explosion11,
 
 	Mark,
+	ClearBlack,
 
 	textureMax,
 };

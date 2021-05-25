@@ -1,31 +1,62 @@
 ﻿  BagOger.cpp
+  Boss.cpp
   EnemyBase.cpp
   GazeOger.cpp
+  LieOgre.cpp
   OiranOger.cpp
   PeepOger.cpp
   SmallOger.cpp
   TunagiOger.cpp
   ActionMark.cpp
+  Arrow.cpp
   Katana.cpp
-  Shuriken.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
   katanaTukiage.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
+  OgreRain.cpp
+  ScaringOgre.cpp
+  Shuriken.cpp
+  SwordRain.cpp
+  Amulet.cpp
   Item.cpp
+  JapaneseDoll.cpp
+  コンパイル中...
+  Scissors.cpp
   Main.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
 C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Main.cpp(10,1): warning C4007: 'WinMain': '__stdcall' でなければなりません。
   GameManager.cpp
   InputManager.cpp
   SceneManager.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
+  SoundManager.cpp
   TextureManager.cpp
   Player.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
 C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Player\Player.cpp(90,19): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
 C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Player\Player.cpp(91,12): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
   InGameScene.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
   ResultScene.cpp
-  コンパイル中...
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
   TitleScene.cpp
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(23,46): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\Katana.h(28,58): warning C4552: '!=': 式の結果が使用されていません
+C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Src\Gimmick\katanaTukiage.h(22,60): warning C4552: '!=': 式の結果が使用されていません
   コード生成しています。
-  32 of 193 functions (16.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  153 of 327 functions (46.8%) were compiled, the rest were copied from previous compilation.
+    65 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   MugenYasiki.vcxproj -> C:\コンテンツ制作\第三回無限屋敷(バックアップ)\MugenYasiki\Release\MugenYasiki.exe

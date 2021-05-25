@@ -2,11 +2,8 @@
 
 KatanaTukiage::KatanaTukiage()
 {
-	m_PosY = TextBar_Y+m_TextureY;
-	m_TextureX = 25;
-	m_TextureY = 225;
-	m_MaxPosY = TextBar_Y - m_TextureY + 90;
-	m_PosX = TukiagePosX;
+	m_PosY = WindowHeight + KatanaTextureY;
+	m_MaxPosY = TextBar_Y - KatanaTextureY + 90;
 }
 
 KatanaTukiage::~KatanaTukiage()
@@ -15,12 +12,13 @@ KatanaTukiage::~KatanaTukiage()
 
 void KatanaTukiage::Exec(int x_ )
 {
-	//while (m_PosX <= LeftLimitPosX + 400)		ここはランダムで座標を出すためのコードです
+	//while (m_PosX <= LeftLimitPosX + 400)		ここはランダムで座標を出すためのコード
 	//{
 	//	m_PosX = GetRand(RightLimitPosX - 300);
 	//}
-	if (m_PosX<= x_+ PlayerTexture_X && m_PosX >= x_ )
+	if (m_IsExec==true)
 	{
+		Init(x_);
 		Draw_katana = true;
 		IsMove = true;
 	}
@@ -28,14 +26,14 @@ void KatanaTukiage::Exec(int x_ )
 	{
 		if (m_MaxPosY <= m_PosY  )
 		{
-			if (m_PosY <= m_MaxPosY)
-			{
-				m_PosY = m_MaxPosY;
-			}
-			else
-			{
-				m_PosY -= m_UpSpeed;
-			}
+			IsPushUp = true;
+			m_PosY -= m_UpSpeed;
+		}
+		if (m_PosY <= m_MaxPosY)
+		{
+			IsPushUp = false;
+			m_PosY = m_MaxPosY;
+			IsMove = false;
 		}
 	}
 }
@@ -44,16 +42,29 @@ void KatanaTukiage::Draw(int TexMana,float pi)
 {
 	if (Draw_katana == true)
 	{
-		DrawRotaGraph2(m_PosX, m_PosY, m_TextureX / 2, m_TextureY, 1.0, pi, TexMana, TRUE);
+		DrawRotaGraph2(m_PosX, m_PosY, KatanaTextureX / 2, KatanaTextureY, 1.0, pi, TexMana, TRUE);
+	}
+}
+
+void KatanaTukiage::Init(int x_)
+{
+	if (m_IsInit == false)
+	{
+		if (m_IsExec == true)
+		{
+			m_IsInit = true;
+			InitValue = x_ + PlayerTexture_X / 2 +40;
+			m_PosX = InitValue;
+		}
 	}
 }
 
 bool KatanaTukiage::Collision(int x_, int y_)
 {
-	if (m_PosX + m_TextureX > x_ + 56 &&
+	if (m_PosX + KatanaTextureX > x_ + 56 &&
 		m_PosX < x_ + 168)
 	{
-		if (m_PosY + m_TextureY > y_ &&
+		if (m_PosY + KatanaTextureY > y_ &&
 			m_PosY < y_ + PlayerTexture_Y)
 		{
 			return true;

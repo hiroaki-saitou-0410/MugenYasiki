@@ -8,18 +8,27 @@ ActionMark::~ActionMark()
 {
 }
 
-bool ActionMark::CollitionR(int P_Pos,bool IsRight)
+bool ActionMark::CollisionR(int P_Pos,bool IsRight)
 {
-	if (P_Pos >= RightLimitPosX - 50 && P_Pos <= RightLimitPosX+10 && IsRight == true)
+	if (P_Pos >= RightLimitPosX - m_SearchRange && P_Pos <= RightLimitPosX+10 && IsRight == true)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool ActionMark::CollitionL(int P_Pos, bool IsRight)
+bool ActionMark::CollisionL(int P_Pos, bool IsRight)
 {
-	if (P_Pos >= LeftLimitPosX && P_Pos <= LeftLimitPosX + 50 && IsRight == false)
+	if (P_Pos >= LeftLimitPosX && P_Pos <= LeftLimitPosX + m_SearchRange && IsRight == false)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool ActionMark::Collision(int P_Pos,int Target)
+{
+	if (P_Pos >= Target - m_SearchRange && P_Pos <= Target + m_SearchRange)
 	{
 		return true;
 	}

@@ -48,12 +48,45 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		TextureDate[trap_Katana] = LoadGraph("Res/Trap/katana2.png");
 		TextureDate[trap_Shuriken] = LoadGraph("Res/Trap/Shuriken.png");
 		TextureDate[trap_arrow] = LoadGraph("Res/Trap/arrow.png");
+		TextureDate[gaze_eye] = LoadGraph("Res/Enemy/ogre_gimmick/eye.png");
+		TextureDate[oiran_smoku] = LoadGraph("Res/Enemy/ogre_gimmick/kemukemu.png");
+		TextureDate[lie_wet] = LoadGraph("Res/Enemy/ogre_gimmick/sitosito.png");
+		TextureDate[boss_blood] = LoadGraph("Res/Enemy/ogre_gimmick/bosu_blooddroplets.png");
+		TextureDate[flontPeepOgre] = LoadGraph("Res/Enemy/ogre_gimmick/PeepOgre2.png");
+		TextureDate[flontGazeOgre] = LoadGraph("Res/Enemy/ogre_gimmick/GazeOgrer2.png");
+
 
 		//Item
 		TextureDate[item_candle] = LoadGraph("Res/Item/Candle.png");
 		TextureDate[item_hagoromo] = LoadGraph("Res/Item/Hagoromo.png");
 		TextureDate[item_Scissors] = LoadGraph("Res/Item/Scissors.png");
 		TextureDate[item_Japanese_doll] = LoadGraph("Res/Item/Japanese_doll.png");
+		TextureDate[item_Amulet] = LoadGraph("Res/Item/amulet.png");
+		TextureDate[item_Amulet_light] = LoadGraph("Res/Item/amulet_light.png");
+		TextureDate[item_diary] = LoadGraph ("Res/Item/diary.png");
+
+		//Get Item
+		TextureDate[item_Get_Scissors] = LoadGraph("Res/Item/Get_Item/scissors.png");
+		TextureDate[item_Get_Japanese_doll] = LoadGraph("Res/Item/Get_Item/japanesedoll.png");
+		TextureDate[item_Get_hagoromo] = LoadGraph("Res/Item/Get_Item/cloth.png");
+		TextureDate[item_Get_Amulet] = LoadGraph("Res/Item/Get_Item/amulet.png");
+		TextureDate[item_Get_diary] = LoadGraph("Res/Item/Get_Item/diary.png");
+		TextureDate[item_Get_itemframe] = LoadGraph("Res/Item/Get_Item/itemframe.png");
+
+		TextureDate[ClearBlack] = LoadGraph("Res/Item/Get_Item/ClearBlack.png");
+
+		//Explosion
+		TextureDate[explosion1] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion1.png");
+		TextureDate[explosion2] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion2.png");
+		TextureDate[explosion3] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion3.png");
+		TextureDate[explosion4] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion4.png");
+		TextureDate[explosion5] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion5.png");
+		TextureDate[explosion6] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion6.png");
+		TextureDate[explosion7] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion7.png");
+		TextureDate[explosion8] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion8.png");
+		TextureDate[explosion9] =  LoadGraph("Res/Item/Get_Item/Explosion/explosion9.png");
+		TextureDate[explosion10] = LoadGraph("Res/Item/Get_Item/Explosion/explosion10.png");
+		TextureDate[explosion11] = LoadGraph("Res/Item/Get_Item/Explosion/explosion11.png");
 
 		//Enemy
 		TextureDate[tunagi_Ogre] = LoadGraph("Res/Enemy/tunagi_ogre.png");
@@ -65,6 +98,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		TextureDate[gaze_Ogre] = LoadGraph("Res/Enemy/Gaze_ogre.png");	  
 		TextureDate[lie_Ogre] = LoadGraph("Res/Enemy/Lie_ogre.png");
 		TextureDate[crawling_Ogre]= LoadGraph("Res/Enemy/Crawling_Ogre.png");
+		TextureDate[boss_Ogre]= LoadGraph("Res/Enemy/boss.png");
 		break;
 		
 	//case Result:

@@ -3,6 +3,7 @@
 
 #include"GimmickBase.h"
 #include"DxLib.h"
+#include"GimmickDefinition.h"
 #include"../Definition.h"
 
 class Arrow:public GimmickBase

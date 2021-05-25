@@ -14,9 +14,10 @@ public:
 
 	virtual bool Collision(int x_, int y_, int EnemyPosY, int EnemyTexture_X, int EnemyTexture_Y,int EnemyPosX);
 
-private:
+protected:
 	int m_PosX;
-
+	int m_TextureX;
+	int m_TextureY;
 };
 
 #endif // !ENEMY_BASE_H

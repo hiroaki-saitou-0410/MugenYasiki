@@ -106,6 +106,39 @@
     <ClInclude Include="Src\Manager\SoundManager.h">
       <Filter>ソース ファイル\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Gimmick\ScaringOgre.h">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Gimmick\SwordRain.h">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Gimmick\OgreRain.h">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Gimmick\GimmickDefinition.h">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Item\Amulet.h">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Item\Scissors.h">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Item\Item_Definition.h">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Item\JapaneseDoll.h">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Enemy\OgreDefinition.h">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Enemy\LieOgre.h">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Enemy\Boss.h">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp">
@@ -185,6 +218,30 @@
     </ClCompile>
     <ClCompile Include="Src\Manager\SoundManager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Gimmick\ScaringOgre.cpp">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Gimmick\SwordRain.cpp">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Gimmick\OgreRain.cpp">
+      <Filter>ソース ファイル\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Item\Amulet.cpp">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Item\Scissors.cpp">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Item\JapaneseDoll.cpp">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Enemy\LieOgre.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Enemy\Boss.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

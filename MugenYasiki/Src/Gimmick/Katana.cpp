@@ -2,10 +2,7 @@
 
 Katana::Katana()
 {
-	m_PosX = Otiru_katana;
 	m_MaxPosY = 562;
-	m_TextureX = 25;
-	m_TextureY = 225;
 }
 
 Katana::~Katana()
@@ -15,12 +12,13 @@ Katana::~Katana()
 void Katana::Exec(int x_)
 {
 	//—Ž‰º
-	if ((m_PosX - 40) <= x_ + PlayerTexture_X && m_PosX + m_TextureX >= x_)//GimmickPosX
+	if (m_IsExec == true)
 	{
+		Init(x_);
 		fall = true;
 		Draw_katana = true;
 	}
-	if(fall==true)
+	if (fall == true)
 	{
 		if (m_PosY <= 620)//845-225	225-(58(283-225))=167
 		{
@@ -41,13 +39,26 @@ void Katana::Draw(int texture)
 	}
 }
 
+void Katana::Init(int x_)
+{
+	if (IsInit == false)
+	{
+		if (m_IsExec==true)
+		{
+			IsInit = true;
+			InitValue = x_ + PlayerTexture_X / 2;
+			m_PosX = InitValue;
+		}
+	}
+}
+
 bool Katana::Collision(int x_,int y_)
 {	
 	//“‚Ì“–‚½‚è”»’è
-	if (m_PosX + m_TextureX > x_ + 56 &&
+	if (m_PosX + KatanaTextureX > x_ + 56 &&
 		m_PosX < x_ + 168 )
 	{
-		if (m_PosY + m_TextureY > y_ &&
+		if (m_PosY + KatanaTextureY > y_ &&
 			m_PosY < y_ + PlayerTexture_Y)
 		{
 			return true;
@@ -63,4 +74,14 @@ bool Katana::Collision(int x_,int y_)
 	//	}
 	//}
 	//return false;
+}
+
+void Katana::FullReset()
+{
+	after_acti = false;
+	Draw_katana = false;
+	fall = false;
+	m_IsExec = false;
+	IsInit = false;
+	m_PosY = 0;
 }

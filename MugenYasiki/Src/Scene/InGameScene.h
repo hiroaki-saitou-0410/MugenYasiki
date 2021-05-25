@@ -18,13 +18,21 @@
 #include"../Enemy/OiranOger.h"
 #include"../Enemy/PeepOger.h"
 #include"../Enemy/SmallOger.h"
+#include"../Enemy/LieOgre.h"
+#include"../Enemy/Boss.h"
 
 #include"../Item/Item.h"
+#include"../Item/Scissors.h"
+#include"../Item/JapaneseDoll.h"
+#include"../Item/Amulet.h"
 
 #include"../Gimmick/ActionMark.h"
 #include"../Gimmick/Katana.h"
 #include"../Gimmick/Shuriken.h"
 #include"../Gimmick/katanaTukiage.h"
+#include"../Gimmick/ScaringOgre.h"
+#include"../Gimmick/SwordRain.h"
+#include"../Gimmick/OgreRain.h"
 
 enum MoveType
 {
@@ -55,6 +63,21 @@ enum Rooms
 
 };
 
+enum AfterMotion
+{
+	eye,
+	wet,
+	blood,
+	normal,
+};
+
+struct ItemCodePasses
+{
+	bool Scissors = false;
+	bool Japan_Doll = false;
+	bool Amulet = false;
+	bool HAGOROMO = false;
+};
 class InGameScene :public SceneBase
 {
 public:
@@ -65,18 +88,22 @@ public:
 	void Exec();
 	void Draw();
 	void GimmickExec();
-	void EnemyExec();
-
 	void GimmickDraw();
+
+	void EnemyExec();
 	void EnemyDraw();
+
+	void ItemExec();
+	void ItemDraw();
 
 	virtual bool IsEnd()const;
 
 	void Step_Pause();
 	void Step_Input();
-	void Fade(Katana katana);
+	void Fade();
 	void Animation();
 	void RoomChange();
+	void InitRand();
 
 private:
 	GameManager* gamenManager = nullptr;
@@ -85,6 +112,8 @@ private:
 	SoundManager* soundManager = nullptr;
 	MoveType moveType = stop_R;
 	Rooms rooms = Strat_Hall;
+	AfterMotion aftMotion = normal;
+	ItemCodePasses itemCodePasses;
 	//bool IsCollision(int Aposx_, int Aposy_, int Bposx_, int Bposy_, int Awidth, int Aheight, int Bwidth, int Bheight);
 
 	bool FinishedScene =false;
@@ -105,10 +134,14 @@ private:
 	int m_LeftMotionMax;
 	int m_OgreNumber;
 	int m_ItemNumber;
-	int EnemyPosX[ONI_MAX] = { 1400,1400,1400,1400,1400,1400,1400,1400,1400};
-	int EnemyPosY[ONI_MAX] = {122,220,290,517,517,525,525,275,285};
-	int EnemyTexture_X[ONI_MAX] = {491,408,432,198,198,198,198,758,411};
-	int EnemyTexture_Y[ONI_MAX] = {673,578,510,278,278,278,278,523,514};
+	int m_GimmickNumber;
+	int Gimmick[EnemyMax];
+	int Enemy[EnemyMax];
+	int EnemyPosX[ONI_MAX] = { 1400,1400,1400,1400,1400,1400,1400,1400 };//1400
+	int EnemyPosY[ONI_MAX] = {122,220,290,517,517,525,525,275 };//285
+	int EnemyTexture_X[ONI_MAX] = {491,408,432,198,198,198,198,758 };//411
+	int EnemyTexture_Y[ONI_MAX] = {673,578,510,278,278,278,278,523 };//514
+	int ItemArray[ItemMax];
 };
 
 #endif // !INGAMESCENE_H

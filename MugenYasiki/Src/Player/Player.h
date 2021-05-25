@@ -10,15 +10,15 @@
 struct Items
 {
 public:
-	bool have_hagoromo;		//羽衣を持っているか
-	bool have_candle;		//ろうそくを持っているか
-	bool have_Scissors;		//ハサミを持っているか
-	bool have_Japanese_doll;//日本人形を持っているか
-	bool have_katana;		//刀を持っているか
-	bool have_omamori;		//お守りを持っているか
-	bool have_tamatebako;	//玉手箱を持っているか
-	bool have_shuriken;		//手裏剣を持っているか
-	bool have_bomb_doll;	//爆弾人形を持っているか
+	bool have_hagoromo=false;		//羽衣を持っているか
+	bool have_candle = false;		//ろうそくを持っているか
+	bool have_Scissors = false;		//ハサミを持っているか
+	bool have_Japanese_doll = false;//日本人形を持っているか
+	bool have_katana = false;		//刀を持っているか
+	bool have_omamori = false;		//お守りを持っているか
+	bool have_tamatebako = false;	//玉手箱を持っているか
+	bool have_shuriken = false;		//手裏剣を持っているか
+	bool have_bomb_doll = false;	//爆弾人形を持っているか
 };
 
 class Player:public Base
@@ -37,6 +37,7 @@ public:
 	void SetPosX(int x) { m_PosX = x; }
 	bool IsStop() { return m_IsStop; }
 	bool IsRight() { return m_IsRight; }
+	void SetIsRight(bool isRught) { m_IsRight = isRught; }
 	bool ItemGet() { return m_GetItem; }
 	bool IsDecision() { return m_IsDecision; }
 
