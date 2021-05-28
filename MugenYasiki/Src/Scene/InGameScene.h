@@ -135,6 +135,7 @@ private:
 	int m_OgreNumber;
 	int m_ItemNumber;
 	int m_GimmickNumber;
+	int m_AmuletPos;
 	int Gimmick[EnemyMax];
 	int Enemy[EnemyMax];
 	int EnemyPosX[ONI_MAX] = { 1400,1400,1400,1400,1400,1400,1400,1400 };//1400

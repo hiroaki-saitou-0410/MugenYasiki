@@ -2,9 +2,9 @@
 
 Boss::Boss()
 {
-	m_PosY = 120;
 	m_TextureX = 408;
 	m_TextureY = 534;
+	m_PosY = TextBar_Y- m_TextureY;
 }
 
 Boss::~Boss()

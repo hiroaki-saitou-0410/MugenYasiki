@@ -2,10 +2,10 @@
 
 BagOger::BagOger()
 {
-	m_PosX = WindowWidth;
-	m_PosY = 390;
 	m_TextureX = 432;
 	m_TextureY = 510;
+	m_PosX = WindowWidth;
+	m_PosY = TextBar_Y-m_TextureY;
 }
 
 BagOger::~BagOger()

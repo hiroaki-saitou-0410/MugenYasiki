@@ -33,7 +33,6 @@ void ScaringOgre::Exec()
 
 void ScaringOgre::Draw(int texture)
 {
-	DrawFormatString(200, 240, GetColor(255, 255, 255), "%d", m_Drawtimer);
 	if (IsDraw ==true)
 	{
 		DrawExtendGraph(m_PosX, m_PosY, m_ExtendPosX + m_PosX, m_ExtendPosY + m_PosY -200 , texture, TRUE);

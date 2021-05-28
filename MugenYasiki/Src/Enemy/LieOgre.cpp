@@ -2,9 +2,9 @@
 
 LieOgre::LieOgre()
 {
-	m_PosY = 275;
 	m_TextureX = 758;
 	m_TextureY = 523;
+	m_PosY = TextBar_Y-m_TextureY;
 }
 
 LieOgre::~LieOgre()

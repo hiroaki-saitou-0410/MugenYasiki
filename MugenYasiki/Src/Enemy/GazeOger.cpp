@@ -2,9 +2,9 @@
 
 GazeOger::GazeOger()
 {
-	m_PosY = 330;
 	m_TextureX = 198;
 	m_TextureY = 278;
+	m_PosY = TextBar_Y-m_TextureY;
 }
 
 GazeOger::~GazeOger()

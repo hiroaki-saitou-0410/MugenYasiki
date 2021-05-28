@@ -13,6 +13,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 	case InGame:
 		//BackGround
 		TextureDate[BackGround0] = LoadGraph("Res/BackGround/Background.jpg");
+		TextureDate[GameClearBG] = LoadGraph("Res/BackGround/success2_0.jpg");
 		TextureDate[Entrance] = LoadGraph("Res/BackGround/Entrance.jpg");//å∫ä÷
 		TextureDate[Corridor] = LoadGraph("Res/BackGround/Corridor.jpg");//òLâ∫
 		TextureDate[Hall] = LoadGraph("Res/BackGround/Hall.jpg");	//çLä‘
@@ -51,9 +52,9 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		TextureDate[gaze_eye] = LoadGraph("Res/Enemy/ogre_gimmick/eye.png");
 		TextureDate[oiran_smoku] = LoadGraph("Res/Enemy/ogre_gimmick/kemukemu.png");
 		TextureDate[lie_wet] = LoadGraph("Res/Enemy/ogre_gimmick/sitosito.png");
-		TextureDate[boss_blood] = LoadGraph("Res/Enemy/ogre_gimmick/bosu_blooddroplets.png");
+		TextureDate[boss_blood] = LoadGraph("Res/Enemy/ogre_gimmick/blooddrop2.png");
 		TextureDate[flontPeepOgre] = LoadGraph("Res/Enemy/ogre_gimmick/PeepOgre2.png");
-		TextureDate[flontGazeOgre] = LoadGraph("Res/Enemy/ogre_gimmick/GazeOgrer2.png");
+		TextureDate[flontGazeOgre] = LoadGraph("Res/Enemy/ogre_gimmick/GazeOgre2.png");
 
 
 		//Item

@@ -29,7 +29,7 @@ ResultScene::~ResultScene()
 
 bool ResultScene::IsEnd() const
 {
-	return (m_Step == STEP_END);
+	return (FinishedScene);
 }
 
 void ResultScene::Exec()
@@ -57,6 +57,7 @@ void ResultScene::Step_Input()
 	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
 	{
 		m_Step = STEP_END;
+		FinishedScene = true;
 		SceneManager::GetInstance()->SetNextScene(Title);
 	}
 }

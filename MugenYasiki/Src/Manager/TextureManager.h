@@ -48,6 +48,7 @@ enum
 	titleTexture2,
 
 	BackGround0,
+	GameClearBG,
 	Entrance,
 	Corridor,
 	Hall,

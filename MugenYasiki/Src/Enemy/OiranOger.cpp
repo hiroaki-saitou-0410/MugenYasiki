@@ -2,9 +2,9 @@
 
 OiranOger::OiranOger()
 {
-	m_PosY = 323;
 	m_TextureX = 408;
 	m_TextureY = 578;
+	m_PosY = TextBar_Y-m_TextureY;
 }
 
 OiranOger::~OiranOger()

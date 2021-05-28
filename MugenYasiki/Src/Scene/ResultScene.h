@@ -26,6 +26,8 @@ private:
 	InputManager* inputManager = nullptr;
 	TextureManager* textureManager = nullptr;
 	SoundManager* soundManager = nullptr;
+
+	bool FinishedScene = false;
 };
 
 #endif // !RESULT_SCENE_H

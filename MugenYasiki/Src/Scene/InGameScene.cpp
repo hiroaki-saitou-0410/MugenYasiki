@@ -3,7 +3,6 @@
 #define PI    3.1415926535897932384626433832795f
 
 float rad90 = (PI / 2);
-bool push = false;
 
 enum
 {
@@ -220,9 +219,6 @@ void InGameScene::Exec()
 	//default:
 	//	break;
 	//}
-	
-	GimmickExec();
-	EnemyExec();
 
 	switch (m_Step)
 	{
@@ -232,16 +228,35 @@ void InGameScene::Exec()
 			m_Step = STEP_PAUSE;
 		}
 
-		if (dead == false)
+		if (player.items.have_omamori == false)
 		{
-			player.Exec();
-			Animation();
+			GimmickExec();
+			EnemyExec();
 		}
 
-		if (inputManager->IsKeyPushed(KEY_INPUT_1))
-		{
-			m_GimmickNumber = GetRand(4);
+		if (dead == false)
+		{	
+			if (amulet.IsDraw()==false)
+			{
+				player.Exec();
+				Animation();
+			}
+			else if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
+			{
+				player.items.have_omamori = true;
+				amulet.ResettingDraw(false);
+			}
 		}
+
+		if (actionMark.Collision(player.GetPosX(), RightLimitPosX)&&player.items.have_omamori == true)
+		{
+			Step_Input();
+		}
+
+		//if (inputManager->IsKeyPushed(KEY_INPUT_1))
+		//{
+		//	m_GimmickNumber = GetRand(4);
+		//}
 		Fade();
 		
 		//if (inputManager->IsKeyPushed(KEY_INPUT_Q))//アイテムランダム生成
@@ -268,291 +283,299 @@ void InGameScene::Draw()
 	case wet:lie.AfterAction(textureManager->GetTextureDate(lie_wet)); break;
 	case blood:boss.AfterAction(textureManager->GetTextureDate(boss_blood)); break;
 	case normal:
+	//	
+	//	//BackGround
+	//	//DrawGraph(0 + bag.QuakingDisply_X(), 0 + tunagi.QuakingDisply(), textureManager->GetTextureDate(BackGround0), TRUE);
+		if (player.items.have_omamori==false)
+		{
+			DrawExtendGraph(0 + bag.QuakingDisply_X(), 0 + tunagi.QuakingDisply(), bag.QuakingDisply_X() + WindowWidth, tunagi.QuakingDisply() + WindowHeight, textureManager->GetTextureDate(BackGround0), TRUE);
+		}
+		else
+		{
+			DrawExtendGraph(0 + bag.QuakingDisply_X(), 0 + tunagi.QuakingDisply(), bag.QuakingDisply_X() + WindowWidth, tunagi.QuakingDisply() + WindowHeight, textureManager->GetTextureDate(GameClearBG), TRUE);
+		}
 		
-		//BackGround
-		//DrawGraph(0 + bag.QuakingDisply_X(), 0 + tunagi.QuakingDisply(), textureManager->GetTextureDate(BackGround0), TRUE);
-		DrawExtendGraph(0 + bag.QuakingDisply_X(), 0 + tunagi.QuakingDisply(), bag.QuakingDisply_X() + WindowWidth, tunagi.QuakingDisply() + WindowHeight, textureManager->GetTextureDate(BackGround0), TRUE);
-		//Item
-		//DrawGraph(400, TextBar_Y - 309, textureManager->GetTextureDate(m_ItemNumber), TRUE);
-
 		//Player
 		DrawGraph(player.GetPosX() + bag.QuakingDisply_X(), player.GetPosY() + tunagi.QuakingDisply(), textureManager->GetTextureDate(m_MoveIndex), TRUE);
+	
+		if (actionMark.Collision(player.GetPosX(), RightLimitPosX) && player.items.have_omamori == true)
+		{
+			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+		}
 
-		GimmickDraw();
-		EnemyDraw();
-		
-		//switch (rooms)
-		//{
-		//case Strat_Hall:
-		//	DrawString(100, 100, "スタートの広間", GetColor(255, 255, 255));
-		//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//	{
-		//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//	}
-		//	//GimmickDraw();
-		//	ItemDraw();
-		//	break;
-		//case Floor2_Hall:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Hall1:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Hall2:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Hall3:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Corridor:
-		//	DrawString(100, 100, "2-1廊下", GetColor(255, 255, 255));
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		//EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Corridor1:
-		//	DrawString(100, 100, "2-2廊下", GetColor(255, 255, 255));
-		//	if (m_RoomChange == false)
-		//	{
-		//		//GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Corridor2:
-		//	DrawString(100, 100, "2-3廊下", GetColor(255, 255, 255));
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Floor2_Corridor3:
-		//	DrawString(100, 100, "2-4廊下", GetColor(255, 255, 255));
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Father_room:
-		//	GimmickDraw();
-		//	EnemyDraw();
-		//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//	{
-		//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//	}
-		//	if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//	{
-		//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//	}
-		//	break;
-		//case Floor1_Corridorl:
-		//	GimmickDraw();
-		//	EnemyDraw();
-		//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//	{
-		//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//	}
-		//	if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//	{
-		//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//	}
-		//	break;
-		//case Floor1_Hall:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case Workshop:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//case G_Entrance:
-		//	if (m_RoomChange == false)
-		//	{
-		//		GimmickDraw();
-		//		EnemyDraw();
-		//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
-		//		{
-		//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
-		//		}
-		//	}
-		//	break;
-		//default:
-		//	break;
-		//}	
-
-		//Text_Bar
-		DrawGraph(8 + bag.QuakingDisply_X(), TextBar_Y + tunagi.QuakingDisply(), textureManager->GetTextureDate(TextBar), TRUE);
-		//Bar_				  
-		DrawGraph(8 + bag.QuakingDisply_X(), TextBar_Y + tunagi.QuakingDisply(), textureManager->GetTextureDate(CharacterTextBar0), TRUE);
-
-		if (dead || isfade_in || push || m_RoomChange)
+		if(player.items.have_omamori == false)
+		{
+			GimmickDraw();
+			EnemyDraw();
+		}	
+	
+	//switch (rooms)
+	//{
+	//case Strat_Hall:
+	//	DrawString(100, 100, "スタートの広間", GetColor(255, 255, 255));
+	//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//	{
+	//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//	}
+	//	//GimmickDraw();
+	//	ItemDraw();
+	//	break;
+	//case Floor2_Hall:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Hall1:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Hall2:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Hall3:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Corridor:
+	//	DrawString(100, 100, "2-1廊下", GetColor(255, 255, 255));
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		//EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Corridor1:
+	//	DrawString(100, 100, "2-2廊下", GetColor(255, 255, 255));
+	//	if (m_RoomChange == false)
+	//	{
+	//		//GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Corridor2:
+	//	DrawString(100, 100, "2-3廊下", GetColor(255, 255, 255));
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Floor2_Corridor3:
+	//	DrawString(100, 100, "2-4廊下", GetColor(255, 255, 255));
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Father_room:
+	//	GimmickDraw();
+	//	EnemyDraw();
+	//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//	{
+	//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//	}
+	//	if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//	{
+	//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//	}
+	//	break;
+	//case Floor1_Corridorl:
+	//	GimmickDraw();
+	//	EnemyDraw();
+	//	if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//	{
+	//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//	}
+	//	if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//	{
+	//		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//	}
+	//	break;
+	//case Floor1_Hall:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case Workshop:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//case G_Entrance:
+	//	if (m_RoomChange == false)
+	//	{
+	//		GimmickDraw();
+	//		EnemyDraw();
+	//		if (actionMark.CollisionR(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//		if (actionMark.CollisionL(player.GetPosX(), player.IsRight()))
+	//		{
+	//			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+	//		}
+	//	}
+	//	break;
+	//default:
+	//	break;
+	//}	
+	
+		if (dead || isfade_in || m_RoomChange)
 		{
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
 			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
-
+	
 		if (m_Step == STEP_PAUSE)
 		{
 			DrawString(960, 100, "Pause", GetColor(255, 255, 255));
 		}
-
+	
 		oiran.AfterAction(textureManager->GetTextureDate(oiran_smoku));
+	
+	
+	/*Debag=======================================================
+	DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_GimmickNumber);
+	if (tukiage.Collision(player.GetPosX(), player.GetPosY()))
+	{
+		DrawString(100, 100, "HIT", GetColor(255, 255, 255));
+	}
+	DrawFormatString(100, 100, GetColor(255, 0, 0), "%d", death_count);
 
-		
-		/*Debag=======================================================
-		DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_GimmickNumber);
-		if (tukiage.Collision(player.GetPosX(), player.GetPosY()))
-		{
-			DrawString(100, 100, "HIT", GetColor(255, 255, 255));
-		}
-		DrawFormatString(100, 100, GetColor(255, 0, 0), "%d", death_count);
+	if (Ebase.Collision(player.GetPosX() + 70, player.GetPosY(), EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]) == true)
+	{
+		DrawString(100, 100, "HIT", GetColor(255, 255, 255));
+	}
 
-		if (Ebase.Collision(player.GetPosX() + 70, player.GetPosY(), EnemyPosY[m_OgreNumber], EnemyTexture_X[m_OgreNumber], EnemyTexture_Y[m_OgreNumber],EnemyPosX[m_OgreNumber]) == true)
-		{
-			DrawString(100, 100, "HIT", GetColor(255, 255, 255));
-		}
+	if (katana.Collision(player.GetPosX(), player.GetPosY()))
+	{
+		DrawString(100, 20, "刀:HIT", GetColor(255, 255, 255));
+	}
+	if (katana.IsFall()==true)
+	{
+		DrawString(100, 140, "落ちてる", GetColor(255, 255, 255));
+	}
+	if (player.items.have_katana == true)
+	{
+		DrawString(100, 160, "刀：持ってる", GetColor(255, 255, 255));
+	}
+	DrawFormatString(100,120, GetColor(255, 255, 255), "%d", m_GimmickNumber);
+	DrawFormatString(100,60, GetColor(255, 255, 255), "%d", katana.GetPosY());
+	DrawFormatString(100,80, GetColor(255, 255, 255), "P_PosX：%d",player.GetPosX());
+	DrawFormatString(100, 40, GetColor(255, 255, 255),"真っ黒まで%d", m_hp);
+	DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_OgreNumber);
 
-		if (katana.Collision(player.GetPosX(), player.GetPosY()))
-		{
-			DrawString(100, 20, "刀:HIT", GetColor(255, 255, 255));
-		}
-		if (katana.IsFall()==true)
-		{
-			DrawString(100, 140, "落ちてる", GetColor(255, 255, 255));
-		}
-		if (player.items.have_katana == true)
-		{
-			DrawString(100, 160, "刀：持ってる", GetColor(255, 255, 255));
-		}
-		DrawFormatString(100,120, GetColor(255, 255, 255), "%d", m_GimmickNumber);
-		DrawFormatString(100,60, GetColor(255, 255, 255), "%d", katana.GetPosY());
-		DrawFormatString(100,80, GetColor(255, 255, 255), "P_PosX：%d",player.GetPosX());
-		DrawFormatString(100, 40, GetColor(255, 255, 255),"真っ黒まで%d", m_hp);
-		DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_OgreNumber);
+	//DrawFormatString(100, 120, GetColor(255, 255, 255), "%d < %d", 1400, player.GetPosX() + PlayerTexture_X);
+	//DrawFormatString(100, 140, GetColor(255, 255, 255), "%d > %d", 1400 + 350, player.GetPosX());
 
-		//DrawFormatString(100, 120, GetColor(255, 255, 255), "%d < %d", 1400, player.GetPosX() + PlayerTexture_X);
-		//DrawFormatString(100, 140, GetColor(255, 255, 255), "%d > %d", 1400 + 350, player.GetPosX());
+	DrawBox(orc_x, EnemyPosY[m_OgreNumber], orc_x + EnemyTexture_X[m_OgreNumber], EnemyPosY[m_OgreNumber] + EnemyTexture_Y[m_OgreNumber], GetColor(255, 255, 255), FALSE);
 
-		DrawBox(orc_x, EnemyPosY[m_OgreNumber], orc_x + EnemyTexture_X[m_OgreNumber], EnemyPosY[m_OgreNumber] + EnemyTexture_Y[m_OgreNumber], GetColor(255, 255, 255), FALSE);
+	DrawBox(player.GetPosX() + 70, player.GetPosY(), player.GetPosX() + PlayerTexture_X, player.GetPosY() + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);
 
-		DrawBox(player.GetPosX() + 70, player.GetPosY(), player.GetPosX() + PlayerTexture_X, player.GetPosY() + PlayerTexture_Y, GetColor(255, 255, 255), FALSE);
-
-		//if (ogreRain.Collision(player.GetPosX(),player.GetPosY()))
-		//{
-		//	DrawString(300, 100, "HIT",GetColor(255, 255, 255));
-		//}
-		//=================================================================
-		//*/
+	//if (ogreRain.Collision(player.GetPosX(),player.GetPosY()))
+	//{
+	//	DrawString(300, 100, "HIT",GetColor(255, 255, 255));
+	//}
+	//=================================================================
+	//*/
 		break;
 	default:
 		break;
@@ -640,10 +663,16 @@ void InGameScene::GimmickExec()
 	scaringOgre.Exec();
 	
 	//shuriken.Exec(player.GetPosX(), player.GetPosY());
-	if (actionMark.Collision(player.GetPosX(), RightLimitPosX))
+	
+	if (actionMark.Collision(player.GetPosX(), m_AmuletPos))
 	{
-		Step_Input();
+		if (player.IsDecision()==true && amulet.Status()==false)
+		{
+			amulet.Exec(player.IsDecision());
+			itemCodePasses.Amulet = true;
+		}
 	}
+	
 }
 
 void InGameScene::GimmickDraw()
@@ -697,9 +726,17 @@ void InGameScene::GimmickDraw()
 	
 	//shuriken.Draw(textureManager->GetTextureDate(trap_Shuriken), PI);
 
-	if (actionMark.Collision(player.GetPosX(), RightLimitPosX - 50))
+	if (actionMark.Collision(player.GetPosX(), m_AmuletPos))
 	{
-		DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+		if (itemCodePasses.Amulet == false)
+		{
+			//DrawString(player.GetPosX() + MarkDrawX, player.GetPosY()-50, "!!", GetColor(255, 255, 255));
+			DrawGraph(player.GetPosX() + MarkDrawX, player.GetPosY(), textureManager->GetTextureDate(Mark), TRUE);
+		}
+	}
+	if (itemCodePasses.Amulet == true)
+	{
+		amulet.Draw(textureManager->GetTextureDate(item_Amulet), textureManager->GetTextureDate(item_Get_Amulet), textureManager->GetTextureDate(item_Get_itemframe), textureManager->GetTextureDate(ClearBlack));
 	}
 }
 
@@ -718,7 +755,7 @@ void InGameScene::EnemyExec()
 	}
 	tunagi.Exec();
 
-	if (actionMark.Collision(player.GetPosX(), Enemy[1]))
+	if (actionMark.Collision(player.GetPosX(), 1500))//Enemy[1]))
 	{
 		if (player.IsDecision() == true)
 		{
@@ -945,7 +982,7 @@ void InGameScene::ItemDraw()
 	}
 	if (itemCodePasses.Amulet == false)
 	{
-		amulet.Draw(textureManager->GetTextureDate(item_Amulet), textureManager->GetTextureDate(item_Get_Amulet), textureManager->GetTextureDate(item_Get_itemframe), textureManager->GetTextureDate(ClearBlack), player.items.have_omamori);
+		//amulet.Draw(textureManager->GetTextureDate(item_Amulet), textureManager->GetTextureDate(item_Get_Amulet), textureManager->GetTextureDate(item_Get_itemframe), textureManager->GetTextureDate(ClearBlack), player.items.have_omamori);
 		if (player.IsDecision() == true && player.items.have_omamori == true)
 		{
 			amulet.IsExplain(false);
@@ -975,7 +1012,7 @@ void InGameScene::Step_Input()
 		FinishedScene = true;
 		player.SetPosX(LeftLimitPosX);
 		katana.FullReset();
-		SceneManager::GetInstance()->SetNextScene(Title);
+		SceneManager::GetInstance()->SetNextScene(Result);
 	}
 }
 
@@ -983,10 +1020,10 @@ void InGameScene::Fade()
 {
 	if (inputManager->IsKeyPushed(KEY_INPUT_B))//強制フェードアウト
 	{
-		push = true;
+		dead = true;
 	}
 	//フェードアウト
-	if (dead || push || m_RoomChange)
+	if (dead || m_RoomChange)
 	{
 		m_alpha += m_fade_speed;
 		if (m_alpha >= 255)
@@ -1010,7 +1047,6 @@ void InGameScene::Fade()
 			isfade_in = true;
 			dead = false;
 			after_acti = true;
-			push = false;
 			orc_dead = false;
 			ogreRain.ResettingExec(false);
 			tukiage.ResettingExec(false);
@@ -1195,38 +1231,52 @@ void InGameScene::RoomChange()
 
 void InGameScene::InitRand()
 {
+	int a, b, c, Clear = 0;
 	for (int i = 0; i < EnemyMax; i++)
 	{
 		Gimmick[i] = 0;
 		Enemy[i] = 0;
 	}
-	for (int i = 1; i < 7; i++)
+	for (int i = 1; i < 6; i++)
 	{
-		int a,b,c;
 		a = GetRand(GimmickMax);
-		b = GetRand(EnemyMax);
-		c = GetRand(1);
-		if (c == 0)
+		b = GetRand(EnemyMax-1);
+		c = GetRand(2);
+		switch (c)
 		{
-			if (Gimmick[a]== 200 * i)
-			{
-				i--;
-			}
-			else
-			{
-				Gimmick[a] = 200 * i;
-			}
-		}
-		else
-		{
-			if (Enemy[b] == 200 * i)
-			{
-				i--;
-			}
-			else
-			{
-				Enemy[b] = 200 * i;
-			}
+			case 0:
+				if (Gimmick[a] == 0)
+				{
+					Gimmick[a] = Distance2Gimmick * i;
+				}
+				else
+				{
+					i--;
+				}
+				break;
+			case 1:
+				if (Enemy[b] == 0)
+				{
+					Enemy[b] = Distance2Gimmick * i;
+				}
+				else
+				{
+					i--;
+				}
+				break;
+			case 2:
+				if (Clear == 0)
+				{
+					m_AmuletPos = Distance2Gimmick * i;
+					Clear++;
+				}
+				else
+				{
+					i--;
+				}
+				break;
+		default:
+			break;
 		}
 	}
 }

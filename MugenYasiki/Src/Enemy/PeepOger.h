@@ -23,6 +23,7 @@ private:
 	int m_ActStop;
 	int m_ActSpeed;
 	int m_MotionMax;
+	const int ShiftPosX = 150;
 
 	bool IsExec = false;
 	bool IsInit = false;

@@ -2,10 +2,10 @@
 
 TunagiOger::TunagiOger()
 {
-	m_PosY = 122;
 	m_QuakePosY = 3;
 	m_TextureX = 491;
 	m_TextureY = 673;
+	m_PosY = TextBar_Y-m_TextureY;
 }
 
 TunagiOger::~TunagiOger()

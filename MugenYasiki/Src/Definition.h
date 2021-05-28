@@ -20,9 +20,10 @@ const int RightLimitPosX = 1650;
 const int LeftLimitPosX = 100;
 
 const int MarkDrawX = 41;
+const int Distance2Gimmick = 250;
 
 const int ItemMax = 4;
-const int GimmickMax = 5;
+const int GimmickMax = 4;
 const int EnemyMax = 6;
 
 enum SceneID
