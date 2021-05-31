@@ -62,6 +62,10 @@ InGameScene::InGameScene()
 	swordRain.Init();
 	ogreRain.Init();
 	InitRand();
+
+	Prologue_Run = 0;
+	Epilogue_Run = 0;
+	FontHandle = CreateFontToHandle(NULL, 40, 3);
 }
 
 
@@ -219,60 +223,65 @@ void InGameScene::Exec()
 	//default:
 	//	break;
 	//}
+		InGameScene::Prologue();
+		InGameScene::Epilogue();
 
-	switch (m_Step)
-	{
-	case STEP_EXEC:
-		if (inputManager->IsKeyPushed(KEY_INPUT_P))//一時停止
+		if (Prologue_Run != 1)
 		{
-			m_Step = STEP_PAUSE;
-		}
-
-		if (player.items.have_omamori == false)
-		{
-			GimmickExec();
-			EnemyExec();
-		}
-
-		if (dead == false)
-		{	
-			if (amulet.IsDraw()==false)
+			switch (m_Step)
 			{
-				player.Exec();
-				Animation();
-			}
-			else if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
-			{
-				player.items.have_omamori = true;
-				amulet.ResettingDraw(false);
+			case STEP_EXEC:
+				if (inputManager->IsKeyPushed(KEY_INPUT_P))//一時停止
+				{
+					m_Step = STEP_PAUSE;
+				}
+
+				if (player.items.have_omamori == false)
+				{
+					GimmickExec();
+					EnemyExec();
+				}
+
+				if (dead == false)
+				{
+					if (amulet.IsDraw() == false)
+					{
+						player.Exec();
+						Animation();
+					}
+					else if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
+					{
+						player.items.have_omamori = true;
+						amulet.ResettingDraw(false);
+					}
+				}
+
+				if (actionMark.Collision(player.GetPosX(), RightLimitPosX) && player.items.have_omamori == true)
+				{
+					Step_Input();
+				}
+
+				//if (inputManager->IsKeyPushed(KEY_INPUT_1))
+				//{
+				//	m_GimmickNumber = GetRand(4);
+				//}
+				Fade();
+
+				//if (inputManager->IsKeyPushed(KEY_INPUT_Q))//アイテムランダム生成
+				//{
+				//	m_ItemNumber = item.RandItem() + item_candle;
+				//}
+				//
+				//if (inputManager->IsKeyPushed(KEY_INPUT_E))//鬼ランダム生成
+				//{
+				//	m_OgreNumber = GetRand(7);
+				//}
+
+				break;
+			case STEP_PAUSE:Step_Pause(); break;
+			default: break;
 			}
 		}
-
-		if (actionMark.Collision(player.GetPosX(), RightLimitPosX)&&player.items.have_omamori == true)
-		{
-			Step_Input();
-		}
-
-		//if (inputManager->IsKeyPushed(KEY_INPUT_1))
-		//{
-		//	m_GimmickNumber = GetRand(4);
-		//}
-		Fade();
-		
-		//if (inputManager->IsKeyPushed(KEY_INPUT_Q))//アイテムランダム生成
-		//{
-		//	m_ItemNumber = item.RandItem() + item_candle;
-		//}
-		//
-		//if (inputManager->IsKeyPushed(KEY_INPUT_E))//鬼ランダム生成
-		//{
-		//	m_OgreNumber = GetRand(7);
-		//}
-
-		break;
-	case STEP_PAUSE:Step_Pause(); break;
-	default: break;
-	}
 }
 
 void InGameScene::Draw()
@@ -579,6 +588,139 @@ void InGameScene::Draw()
 		break;
 	default:
 		break;
+	}
+
+	if (Prologue_Run == 1)
+	{
+		DrawWidth1 = GetDrawStringWidthToHandle("目が覚めるとそこは知らない場所だった。", -1, FontHandle);
+		DrawWidth2 = GetDrawStringWidthToHandle("あたりを見渡すと どうやら和風の建物のようだが、薄暗くて気味が悪い。", -1, FontHandle);
+		DrawWidth3 = GetDrawStringWidthToHandle("外に出ようと襖を開けようとするがなぜか開かない。", -1, FontHandle);
+		DrawWidth4 = GetDrawStringWidthToHandle("どうやら鍵が外からかけらているようだ。このままでは出ることが出来ない。", -1, FontHandle);
+		DrawWidth5 = GetDrawStringWidthToHandle("千代ちゃんは、部屋になにか扉を開けるものはないか探すことにした...", -1, FontHandle);
+
+		if (m_alpha >= 255)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 300, "目が覚めるとそこは知らない場所だった。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 400, "あたりを見渡すと どうやら和風の建物のようだが、薄暗くて気味が悪い。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 500, "外に出ようと襖を開けようとするがなぜか開かない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 600, "どうやら鍵が外からかけらているようだ。このままでは出ることが出来ない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 700, "千代ちゃんは、部屋になにか扉を開けるものはないか探すことにした...", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else
+		{
+			m_alpha += m_fade_speed;
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 300, "目が覚めるとそこは知らない場所だった。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 400, "あたりを見渡すと どうやら和風の建物のようだが、薄暗くて気味が悪い。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 500, "外に出ようと襖を開けようとするがなぜか開かない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 600, "どうやら鍵が外からかけらているようだ。このままでは出ることが出来ない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 700, "千代ちゃんは、部屋になにか扉を開けるものはないか探すことにした...", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+	}
+	else if (Prologue_Run == 2)
+	{
+		if (m_alpha <= 0)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 300, "目が覚めるとそこは知らない場所だった。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 400, "あたりを見渡すと どうやら和風の建物のようだが、薄暗くて気味が悪い。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 500, "外に出ようと襖を開けようとするがなぜか開かない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 600, "どうやら鍵が外からかけらているようだ。このままでは出ることが出来ない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 700, "千代ちゃんは、部屋になにか扉を開けるものはないか探すことにした...", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else
+		{
+			m_alpha -= m_fade_speed;
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 300, "目が覚めるとそこは知らない場所だった。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 400, "あたりを見渡すと どうやら和風の建物のようだが、薄暗くて気味が悪い。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 500, "外に出ようと襖を開けようとするがなぜか開かない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 600, "どうやら鍵が外からかけらているようだ。このままでは出ることが出来ない。", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 700, "千代ちゃんは、部屋になにか扉を開けるものはないか探すことにした...", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+	}
+
+	if (Epilogue_Run == 1)
+	{
+		DrawWidth1 = GetDrawStringWidthToHandle("「やっと外に出れた！」しかしなぜかしわがれた声が出る", -1, FontHandle);
+		DrawWidth2 = GetDrawStringWidthToHandle("しかもなんだか体がうまく動かない", -1, FontHandle);
+		DrawWidth3 = GetDrawStringWidthToHandle("そう思って手をみてみるとしわくちゃの手", -1, FontHandle);
+		DrawWidth4 = GetDrawStringWidthToHandle("後ろを振り返るとボロボロになっている屋敷", -1, FontHandle);
+		DrawWidth5 = GetDrawStringWidthToHandle("「なんで？どうなっているの？」", -1, FontHandle);
+		DrawWidth6 = GetDrawStringWidthToHandle("とりあえず山を下りようと目の前の鳥居をくぐると", -1, FontHandle);
+		DrawWidth7 = GetDrawStringWidthToHandle("「はて？私はなんでここにいたんだったかな？」", -1, FontHandle);
+		DrawWidth8 = GetDrawStringWidthToHandle("千代ちゃんは記憶をなくし町に溶け込んでいくのだった…", -1, FontHandle);
+
+		if (m_alpha >= 255)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 100, "「やっと外に出れた！」しかしなぜかしわがれた声が出る", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 200, "しかもなんだか体がうまく動かない", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 300, "そう思って手をみてみるとしわくちゃの手", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 400, "後ろを振り返るとボロボロになっている屋敷", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 500, "「なんで？どうなっているの？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth6) / 2, 600, "とりあえず山を下りようと目の前の鳥居をくぐると", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth7) / 2, 700, "「はて？私はなんでここにいたんだったかな？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth8) / 2, 800, "千代ちゃんは記憶をなくし町に溶け込んでいくのだった…", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else
+		{
+			m_alpha += m_fade_speed;
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 100, "「やっと外に出れた！」しかしなぜかしわがれた声が出る", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 200, "しかもなんだか体がうまく動かない", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 300, "そう思って手をみてみるとしわくちゃの手", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 400, "後ろを振り返るとボロボロになっている屋敷", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 500, "「なんで？どうなっているの？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth6) / 2, 600, "とりあえず山を下りようと目の前の鳥居をくぐると", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth7) / 2, 700, "「はて？私はなんでここにいたんだったかな？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth8) / 2, 800, "千代ちゃんは記憶をなくし町に溶け込んでいくのだった…", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+	}
+	else if (Epilogue_Run == 2)
+	{
+		if (m_alpha <= 0)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 100, "「やっと外に出れた！」しかしなぜかしわがれた声が出る", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 200, "しかもなんだか体がうまく動かない", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 300, "そう思って手をみてみるとしわくちゃの手", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 400, "後ろを振り返るとボロボロになっている屋敷", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 500, "「なんで？どうなっているの？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth6) / 2, 600, "とりあえず山を下りようと目の前の鳥居をくぐると", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth7) / 2, 700, "「はて？私はなんでここにいたんだったかな？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth8) / 2, 800, "千代ちゃんは記憶をなくし町に溶け込んでいくのだった…", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else
+		{
+			m_alpha -= m_fade_speed;
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+			DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), TRUE);
+			DrawStringToHandle((WindowWidth - DrawWidth1) / 2, 100, "「やっと外に出れた！」しかしなぜかしわがれた声が出る", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth2) / 2, 200, "しかもなんだか体がうまく動かない", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth3) / 2, 300, "そう思って手をみてみるとしわくちゃの手", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth4) / 2, 400, "後ろを振り返るとボロボロになっている屋敷", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth5) / 2, 500, "「なんで？どうなっているの？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth6) / 2, 600, "とりあえず山を下りようと目の前の鳥居をくぐると", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth7) / 2, 700, "「はて？私はなんでここにいたんだったかな？」", GetColor(255, 255, 255), FontHandle);
+			DrawStringToHandle((WindowWidth - DrawWidth8) / 2, 800, "千代ちゃんは記憶をなくし町に溶け込んでいくのだった…", GetColor(255, 255, 255), FontHandle);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
 	}
 }
 
@@ -1277,6 +1419,39 @@ void InGameScene::InitRand()
 				break;
 		default:
 			break;
+		}
+	}
+}
+
+void InGameScene::Prologue()
+{
+	if (Prologue_Run == 0)
+	{
+		Prologue_Run = 1;
+	}
+	if (Prologue_Run == 1)
+	{
+		if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
+		{
+			Prologue_Run = 2;
+		}
+	}
+}
+
+void InGameScene::Epilogue()
+{
+	if (Epilogue_Run == 0)
+	{
+		if (inputManager->IsKeyPushed(KEY_INPUT_E))
+		{
+			Epilogue_Run = 1;
+		}
+	}
+	if (Epilogue_Run == 1)
+	{
+		if (inputManager->IsKeyPushed(KEY_INPUT_RETURN))
+		{
+			Epilogue_Run = 2;
 		}
 	}
 }

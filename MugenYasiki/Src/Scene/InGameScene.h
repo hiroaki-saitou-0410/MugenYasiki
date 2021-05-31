@@ -105,6 +105,9 @@ public:
 	void RoomChange();
 	void InitRand();
 
+	void Prologue();
+	void Epilogue();
+
 private:
 	GameManager* gamenManager = nullptr;
 	InputManager* inputManager = nullptr;
@@ -122,9 +125,21 @@ private:
 	bool after_acti = false;
 	bool dead = false;
 	bool m_RoomChange = false;
+	bool ItemOut = false;
 
+	int Prologue_Run = 0;
+	int Epilogue_Run = 0;
+	int FontHandle;
+	int DrawWidth1;
+	int DrawWidth2;
+	int DrawWidth3;
+	int DrawWidth4;
+	int DrawWidth5;
+	int DrawWidth6;
+	int DrawWidth7;
+	int DrawWidth8;
 	int m_hp;
-	int m_alpha = 0;
+	int m_alpha = 255;
 	int m_fade_speed = 2;
 	int m_RoomNumber;
 	int m_ActStop;
