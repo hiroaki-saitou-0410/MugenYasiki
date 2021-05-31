@@ -755,7 +755,7 @@ void InGameScene::EnemyExec()
 	}
 	tunagi.Exec();
 
-	if (actionMark.Collision(player.GetPosX(), 1500))//Enemy[1]))
+	if (actionMark.Collision(player.GetPosX(), Enemy[1]))
 	{
 		if (player.IsDecision() == true)
 		{
@@ -1237,7 +1237,7 @@ void InGameScene::InitRand()
 		Gimmick[i] = 0;
 		Enemy[i] = 0;
 	}
-	for (int i = 1; i < 6; i++)
+	for (int i = 1; i < 7; i++)
 	{
 		a = GetRand(GimmickMax);
 		b = GetRand(EnemyMax-1);

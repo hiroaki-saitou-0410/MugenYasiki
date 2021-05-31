@@ -50,7 +50,7 @@ void TextureManager::LoadSceneTexture(SceneID sceneid)
 		TextureDate[trap_Shuriken] = LoadGraph("Res/Trap/Shuriken.png");
 		TextureDate[trap_arrow] = LoadGraph("Res/Trap/arrow.png");
 		TextureDate[gaze_eye] = LoadGraph("Res/Enemy/ogre_gimmick/eye.png");
-		TextureDate[oiran_smoku] = LoadGraph("Res/Enemy/ogre_gimmick/kemukemu.png");
+		TextureDate[oiran_smoku] = LoadGraph("Res/Enemy/ogre_gimmick/smork.png");
 		TextureDate[lie_wet] = LoadGraph("Res/Enemy/ogre_gimmick/sitosito.png");
 		TextureDate[boss_blood] = LoadGraph("Res/Enemy/ogre_gimmick/blooddrop2.png");
 		TextureDate[flontPeepOgre] = LoadGraph("Res/Enemy/ogre_gimmick/PeepOgre2.png");
