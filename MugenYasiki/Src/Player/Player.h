@@ -44,6 +44,7 @@ public:
 	Items items;
 private:
 	InputManager* inputManager = nullptr;
+	SoundManager* soundManager = nullptr;
 
 	int m_PosX;
 	int m_PosY;
