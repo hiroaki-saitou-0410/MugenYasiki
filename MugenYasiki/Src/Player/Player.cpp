@@ -99,3 +99,18 @@ void Player::Jump()
 	}	
 }
 
+void Player::Sound()
+{
+	if (m_IsStop == false)
+	{
+		soundManager->PlaySceneSound(soundManager->GetSoundDate(tiyo_w), DX_PLAYTYPE_LOOP, TRUE, 255);
+	}
+	else
+	{
+		if (CheckSoundMem(soundManager->GetSoundDate(titleSound)) == TRUE)
+		{
+			StopSoundMem(soundManager->GetSoundDate(titleSound));
+		}
+	}
+}
+

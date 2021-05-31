@@ -35,7 +35,7 @@ void TitleScene::Exec()
 	switch (m_Step)
 	{
 	case STEP_LOGO:Step_Logo();
-		//Sound();
+		Sound();
 		break;
 	case STEP_INPUT:Step_Input(); break;
 	default:break;

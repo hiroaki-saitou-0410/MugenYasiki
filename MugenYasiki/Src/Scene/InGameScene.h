@@ -138,8 +138,11 @@ private:
 	int DrawWidth6;
 	int DrawWidth7;
 	int DrawWidth8;
+	int DrawWidth9;
 	int m_hp;
 	int m_alpha = 255;
+	int Pro_alpha = 255;
+	int Epi_alpha = 255;
 	int m_fade_speed = 2;
 	int m_RoomNumber;
 	int m_ActStop;

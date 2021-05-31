@@ -6,6 +6,7 @@
 #include"../Manager/InputManager.h"
 #include"../Scene/InGameScene.h"
 #include"../Base.h"
+#include"../Manager/SoundManager.h"
 
 struct Items
 {
@@ -41,9 +42,12 @@ public:
 	bool ItemGet() { return m_GetItem; }
 	bool IsDecision() { return m_IsDecision; }
 
+	void Sound();
+
 	Items items;
 private:
 	InputManager* inputManager = nullptr;
+	SoundManager* soundManager = nullptr;
 
 	int m_PosX;
 	int m_PosY;
