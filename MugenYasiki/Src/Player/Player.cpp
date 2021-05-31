@@ -18,6 +18,7 @@ Player::~Player()
 
 void Player::Exec()
 {
+	//Sound();
 	if (inputManager->IsKeyHeld(KEY_INPUT_LEFT) && m_PosX > LeftLimitPosX)//ç∂
 	{
 		m_IsStop = false;
