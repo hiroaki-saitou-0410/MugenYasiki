@@ -540,7 +540,8 @@ void InGameScene::Draw()
 	
 		oiran.AfterAction(textureManager->GetTextureDate(oiran_smoku));
 	
-	
+		DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_AmuletPos); 
+		DrawFormatString(100, 100, GetColor(255, 255, 255), "%d", Enemy[5]);
 	/*Debag=======================================================
 	DrawFormatString(100, 120, GetColor(255, 255, 255), "%d", m_GimmickNumber);
 	if (tukiage.Collision(player.GetPosX(), player.GetPosY()))
@@ -1162,9 +1163,12 @@ void InGameScene::Step_Input()
 	if (inputManager->IsKeyPushed(KEY_INPUT_RETURN) && Epilogue_Run == 2)
 	{
 		FinishedScene = true;
+		amulet.IsExplain(false);
+		player.items.have_omamori = false;
+		itemCodePasses.Amulet = false;
 		player.SetPosX(LeftLimitPosX);
 		katana.FullReset();
-		SceneManager::GetInstance()->SetNextScene(Result);
+		SceneManager::GetInstance()->SetNextScene(Title);
 	}
 }
 
